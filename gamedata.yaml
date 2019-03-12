@@ -191,3 +191,10 @@ Nuclear Throne:
 TIS-100:
   # UNITY
 
+Diehard Dungeon:
+  linux:
+    steam:
+      appname: DiehardDungeon
+      musicpaths:
+      - path: Content/Music
+        filespec: "*.ogg"

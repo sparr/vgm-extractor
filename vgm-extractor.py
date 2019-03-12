@@ -10,7 +10,7 @@ import mutagen
 
 #TODO specify games to process at command line
 #GAMES=["Factorio","Nuclear Throne"]
-GAMES=[]
+GAMES=[""]
 
 #TODO specify formats at commend line
 #TODO priority order of formats
