@@ -1,0 +1,6 @@
+---
+
+Shenzhen I/O:
+  game_folder: SHENZHEN IO
+  extract_steps:
+    - filespec: "Content/music/*.ogg"

@@ -1,0 +1,6 @@
+---
+
+Opus Magnum:
+  game_folder: Opus Magnum
+  extract_steps:
+    - filespec: "Content/music/*.ogg"
