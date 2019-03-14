@@ -1,7 +1,8 @@
 ---
 
 DOTA 2:
-# ???
+# Valve vpk files not compatible with TF2/bin/vpk_linux32
+# Some work in GCFscape http://nemesis.thewavelength.net/index.php?p=25 but can't find music
 
 Rust:
 # ???
@@ -12,32 +13,44 @@ Skyrim:
 Homeworld Remastered:
 # needs tools like Homesong, Biggie, BigX to extract HW1 and HW2 music
 
-Dex:
-# need Unity assets/resource extractor
-
-Among the Sleep:
-# need Unity assets/resource extractor
-
-Kerbal Space Program:
-# Unity
-
-The First Tree:
-# Unity
-
-The Signal From Tölva:
-# Unity
-
 Tooth and Tail:
 # RIFF bank files, maybe extract with tool like quickbms?
 
+Rusty Lake Roots:
+# SWF with embedded MP3(?)
+
+N++:
+# Soundtrack.FSB file that doesn't work in http://aezay.dk/aezay/fsbextractor/
+
+Silicon Zeroes:
+# .bank files?
+
+A Hat In Time:
+# no obvious music files, possibly inside .umap levels?
+
+# Unity games need a .asset/.assets/.resS unpacker:
+Dex:
+Among the Sleep:
+Kerbal Space Program:
+The First Tree:
+The Signal From Tölva:
 Keep Talking and Nobody Explodes:
-# Unity
-
 Rimworld:
-# Unity
-
 Duskers:
-# Unity
-
 TIS-100:
-# Unity
+Unturned:
+Tacoma:
+One Deck Dungeon:
+Mysterium:
+Holy Potatoes! We're in Space!:
+7 Days To Die:
+Throne of Lies:
+Nimbatus:
+God is a Cube:
+Gladiabots:
+Agricola All Creatures Big and Small:
+Niche:
+Dungeons 3:
+Factory Town:
+the Sequence:
+Scythe Digital Edition:

@@ -1,0 +1,10 @@
+---
+
+Space Run Galaxy:
+  game_folder: Space Run Galaxy
+  extract_steps:
+    - filespec: "SRGalaxyResources/_Cooking/Music/SpaceRunGalaxy_Boss_*.og"
+    - filespec: "SRGalaxyResources/_Cooking/Music/SpaceRunGalaxy_Run_*.og"
+    - filespec: "SRGalaxyResources/_Cooking/Music/SpaceRunGalaxy_Score_*.og"
+    - filespec: "SRGalaxyResources/_Cooking/Music/SpaceRunGalaxy_System_*.og"
+    - filespec: "SRGalaxyResources/_Cooking/Music/SpaceRunGalaxy_Title*.og"

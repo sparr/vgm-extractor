@@ -1,0 +1,13 @@
+---
+
+Rogue Legacy:
+  # game_folder: Rogue Legacy
+  # extract_steps:
+  #   - unxwb:
+  #     xwb_file: "Content/Audio/MusicWaveBank.xwb"
+  #     xsb_file: "Content/Audio/MusicSoundBank.xsb"
+  #     xsb_offset: 1086
+
+# need unxwb from http://aluigi.altervista.org/papers.htm which currently doesn't build on linux
+# then need to do `unxwb -d OUTPUTDIR -b MusicSoundBank.xsb 1086 MusicWaveBank.xwb`
+# then need to optionall convert wav to mp3/etc

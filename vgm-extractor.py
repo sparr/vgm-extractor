@@ -4,15 +4,13 @@ import copy
 import yaml
 import shutil
 import string
+import fnmatch
 import mutagen
 import argparse
 import subprocess
 import pathvalidate
 from pathlib import Path
-
-# for development purposes
-import sys
-import pprint
+from zipfile import ZipFile
 
 arg_parser = argparse.ArgumentParser()
 arg_parser.add_argument("games", metavar="game", nargs="*", help="games to extract")
@@ -143,4 +141,15 @@ for gamename, data in gamedata.items():
                 if "script_filespec" in step:
                     # tag files from the script
                     for filepath in outputgamepath.glob(step["script_filespec"]):
-                        tag(filepath, gamename)
+                        file_tag(filepath, gamename)
+
+            # zip files
+            if "zipfile" in step:
+                with ZipFile(
+                    Path(game_folder.joinpath(step["zipfile"])), "r"
+                ) as zipfile:
+                    for filename in zipfile.namelist():
+                        if fnmatch.fnmatch(filename, step["zipfilespec"]):
+                            zipfile.extract(filename, path=outputgamepath)
+                            file_tag(outputgamepath.joinpath(filename), gamename)
+                # TODO: eliminate unwanted levels of folder nesting here
