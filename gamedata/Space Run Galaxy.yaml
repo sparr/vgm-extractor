@@ -8,3 +8,5 @@ Space Run Galaxy:
     - filespec: "SRGalaxyResources/_Cooking/Music/SpaceRunGalaxy_Score_*.og"
     - filespec: "SRGalaxyResources/_Cooking/Music/SpaceRunGalaxy_System_*.og"
     - filespec: "SRGalaxyResources/_Cooking/Music/SpaceRunGalaxy_Title*.og"
+
+# TODO: get tagging working on these files

@@ -4,11 +4,13 @@ Team Fortress 2:
   game_folder: Team Fortress 2
   extract_steps:
     - script: |
-        cd "${copydst}" || exit 1
+        cd "${output_path}" || exit 1
         mkdir -p sound/music || exit 1
         for file in `LD_LIBRARY_PATH="${game_folder}/bin" "${game_folder}/bin/vpk_linux32" L "${game_folder}/hl2/hl2_sound_misc_dir.vpk" | cut -d " " -f 1 | grep "^sound/music/[^/]*\.\(mp3\)"`
         do
-          LD_LIBRARY_PATH="${game_folder}/bin" "${game_folder}/bin/vpk_linux32" x "${game_folder}/hl2/hl2_sound_misc_dir.vpk" $$file
+          if [ ! -f $$(basename $$file) ]; then
+            LD_LIBRARY_PATH="${game_folder}/bin" "${game_folder}/bin/vpk_linux32" x "${game_folder}/hl2/hl2_sound_misc_dir.vpk" $$file
+          fi
         done
         mv sound/music/* .
         rmdir sound/music

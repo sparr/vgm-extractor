@@ -12,15 +12,29 @@ import pathvalidate
 from pathlib import Path
 from zipfile import ZipFile
 
-arg_parser = argparse.ArgumentParser()
+arg_parser = argparse.ArgumentParser(
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter
+)
 arg_parser.add_argument("games", metavar="game", nargs="*", help="games to extract")
 arg_parser.add_argument("--outputpath", help="path to output folder", required=True)
 arg_parser.add_argument(
     "--steamappspath", help="path to steamapps folder", required=True
 )
+arg_parser.add_argument(
+    "--albumsuffix",
+    help="appended to the game name in the Album metadata for each track",
+    default="[VGMX]",
+)
 # TODO priority order of formats
 arg_parser.add_argument(
     "--format", help="preferred file format/extension, or '*' for all", default="mp3"
+)
+arg_parser.add_argument(
+    "--scriptoutput",
+    help="show script output",
+    default=False,
+    action="store_const",
+    const=True,
 )
 
 args = arg_parser.parse_args()
@@ -48,9 +62,12 @@ for datafilepath in scriptdir.glob("gamedata/*.yaml"):
 def file_tag(file, gamename):
     mutafile = mutagen.File(file, easy=True)
     if mutafile is not None:
+        albumtag = gamename
+        if args.albumsuffix:
+            albumtag += " " + args.albumsuffix
         # TODO handle ID3 Frame types for non-Easy classes
         if "album" not in mutafile:
-            mutafile["album"] = gamename
+            mutafile["album"] = albumtag
         mutafile.save()
 
 
@@ -69,9 +86,13 @@ def copy_and_tag(src, dst, gamename):
     file_tag(dst, gamename)
 
 
-for gamename, data in gamedata.items():
-    if len(args.games) > 0 and gamename not in args.games:
-        continue
+if len(args.games) == 0:
+    args.games = gamedata.keys()
+
+for gamename in args.games:
+    if gamename not in gamedata:
+        raise FileNotFoundError
+    data = gamedata[gamename]
     # replace / with _ to make valid directory name
     outputgamepath = outputpath.joinpath(pathvalidate.sanitize_filename(gamename, "_"))
     if data:
@@ -131,17 +152,18 @@ for gamename, data in gamedata.items():
                         "bash",
                         "-c",
                         string.Template(step["script"]).substitute(
-                            game_folder=game_folder, copydst=copydst
+                            game_folder=game_folder, output_path=outputgamepath
                         ),
                     ],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
+                    stdout=None if args.scriptoutput else subprocess.DEVNULL,
+                    stderr=None if args.scriptoutput else subprocess.DEVNULL,
                 )
-                # script_filespec describes the script output files to be tagged
-                if "script_filespec" in step:
-                    # tag files from the script
-                    for filepath in outputgamepath.glob(step["script_filespec"]):
-                        file_tag(filepath, gamename)
+
+            # output_filespec describes the output files to be tagged
+            if "output_filespec" in step:
+                # tag files from the script
+                for filepath in outputgamepath.glob(step["output_filespec"]):
+                    file_tag(filepath, gamename)
 
             # zip files
             if "zipfile" in step:

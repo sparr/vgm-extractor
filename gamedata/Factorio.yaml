@@ -3,5 +3,5 @@
 Factorio:
   game_folder: Factorio
   extract_steps:
-    - filespec: "data/base/sound/ambient*.ogg"
+    - filespec: "data/base/sound/ambient/*.ogg"
     - filespec: "core/graphics/factorio.png"
