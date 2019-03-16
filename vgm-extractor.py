@@ -36,6 +36,13 @@ arg_parser.add_argument(
     action="store_const",
     const=True,
 )
+arg_parser.add_argument(
+    "--overwrite",
+    help="overwrite existing files",
+    default=False,
+    action="store_const",
+    const=True,
+)
 
 args = arg_parser.parse_args()
 
@@ -74,7 +81,7 @@ def file_tag(file, gamename):
 def file_copy(src, dst):
     if Path(dst).is_dir():
         dst = Path(dst).joinpath(Path(src).name)
-    if dst.exists():
+    if not args.overwrite and dst.exists():
         # do not overwrite existing files
         raise FileExistsError
     shutil.copy(src, dst)
@@ -107,6 +114,9 @@ for gamename in args.games:
         while i < len(data["extract_steps"]) - 1:
             i += 1
             step = data["extract_steps"][i]
+
+            # The type of extraction step is identified by one or more unique keys
+
             # filespec indicates we are going to copy some files and folders
             if "filespec" in step:
                 filespec = step["filespec"]
@@ -145,6 +155,7 @@ for gamename in args.games:
                     except FileExistsError:
                         pass
 
+            # TODO: support Windows alternative
             # script contains a bash script to run to extract music somehow
             if "script" in step:
                 subprocess.run(
@@ -159,10 +170,10 @@ for gamename in args.games:
                     stderr=None if args.scriptoutput else subprocess.DEVNULL,
                 )
 
-            # output_filespec describes the output files to be tagged
-            if "output_filespec" in step:
+            # tag_filespec describes the output files to be tagged
+            if "tag_filespec" in step:
                 # tag files from the script
-                for filepath in outputgamepath.glob(step["output_filespec"]):
+                for filepath in outputgamepath.glob(step["tag_filespec"]):
                     file_tag(filepath, gamename)
 
             # zip files
@@ -172,6 +183,31 @@ for gamename in args.games:
                 ) as zipfile:
                     for filename in zipfile.namelist():
                         if fnmatch.fnmatch(filename, step["zipfilespec"]):
+                            if (
+                                not args.overwrite
+                                and outputgamepath.joinpath(filename).exists()
+                            ):
+                                # do not overwrite existing files
+                                continue
                             zipfile.extract(filename, path=outputgamepath)
                             file_tag(outputgamepath.joinpath(filename), gamename)
                 # TODO: eliminate unwanted levels of folder nesting here
+
+            # xwb files
+            # unxwb from https://aluigi.altervista.org/papers.htm#xbox
+            # TODO: support --overwrite
+            if "xwb_file" in step and "xsb_file" in step and shutil.which("unxwb"):
+                no = subprocess.Popen(["yes", "n"], stdout=subprocess.PIPE)
+                unxwb = subprocess.run(
+                    [
+                        "unxwb",
+                        "-d",
+                        outputgamepath,
+                        "-b",
+                        game_folder.joinpath(step["xsb_file"]),
+                        str(step.get("xsb_offset", 0)),
+                        game_folder.joinpath(step["xwb_file"]),
+                    ],
+                    stdin=no.stdout,
+                )
+                no.stdout.close()

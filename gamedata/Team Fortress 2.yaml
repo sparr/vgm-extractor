@@ -15,4 +15,4 @@ Team Fortress 2:
         mv sound/music/* .
         rmdir sound/music
         rmdir sound
-    - output_filespec: "*.mp3"
+    - tag_filespec: "*.mp3"
