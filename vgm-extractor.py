@@ -43,6 +43,13 @@ arg_parser.add_argument(
     action="store_const",
     const=True,
 )
+arg_parser.add_argument(
+    "--rescan",
+    help="extract music for target directories that already exist",
+    default=False,
+    action="store_const",
+    const=True,
+)
 
 args = arg_parser.parse_args()
 
@@ -96,12 +103,16 @@ def copy_and_tag(src, dst, gamename):
 if len(args.games) == 0:
     args.games = gamedata.keys()
 
+# TODO: instead of looping through all the games we support, instead
+# loop through the steampath itchpath programfiles etc
 for gamename in args.games:
     if gamename not in gamedata:
         raise FileNotFoundError
     data = gamedata[gamename]
     # replace / with _ to make valid directory name
     outputgamepath = outputpath.joinpath(pathvalidate.sanitize_filename(gamename, "_"))
+    if Path(outputgamepath).exists() and not args.rescan:
+        continue
     if data:
         # TODO: support more platforms than steam
         game_folder = steamappspath.joinpath(data["game_folder"])
@@ -197,7 +208,11 @@ for gamename in args.games:
             # unxwb from https://aluigi.altervista.org/papers.htm#xbox
             # TODO: support --overwrite
             if "xwb_file" in step and "xsb_file" in step and shutil.which("unxwb"):
-                no = subprocess.Popen(["yes", "n"], stdout=subprocess.PIPE)
+                if args.overwrite:
+                    prompt_key = "y"
+                else:
+                    prompt_key = "n"
+                yes = subprocess.Popen(["yes", prompt_key], stdout=subprocess.PIPE)
                 unxwb = subprocess.run(
                     [
                         "unxwb",
@@ -208,6 +223,6 @@ for gamename in args.games:
                         str(step.get("xsb_offset", 0)),
                         game_folder.joinpath(step["xwb_file"]),
                     ],
-                    stdin=no.stdout,
+                    stdin=yes.stdout,
                 )
-                no.stdout.close()
+                yes.stdout.close()
