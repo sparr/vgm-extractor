@@ -30,7 +30,7 @@ YAML files describe how to extract music from the game, using a variety of commo
 
 ### Python Files
 
-Occasionally a game requires custom logic, and this will be found in the python file and referenced in the yaml file. See [Team Fortress 2](gamedata/Team%20Fortress%202.py) for an example.
+Occasionally a game requires custom logic, and this will be found in the python file and referenced in the yaml file. See [Team Fortress 2](Team%20Fortress%202.py) for an example.
 
 #### Functions
 
