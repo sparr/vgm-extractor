@@ -180,7 +180,7 @@ for game_name in args.games:
                         "args": args,
                     }
                 )
-                if args.pythonoutput:
+                if python_output and args.pythonoutput:
                     print(python_output.stdout, end="")
                     print(python_output.stderr, end="")
 

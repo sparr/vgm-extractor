@@ -39,3 +39,5 @@ Each python file is loaded as a module, and should contain top level functions. 
 * **output_game_path** *Path* path to the base folder where extracted files for this game should go
 * **game_folder** *Path* path to the installed game folder
 * **args** *{string:any}* parsed command line arguments from the original vgm-extractor invocation
+
+Each function may return a subprocess.CompletedProcess
