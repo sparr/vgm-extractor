@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
+import argparse
 import copy
-import yaml
-import shutil
-import string
 import fnmatch
 import mutagen
-import argparse
-import subprocess
 import pathvalidate
+import pkgutil
+import shutil
+import subprocess
+import yaml
 from pathlib import Path
 from zipfile import ZipFile
 
@@ -30,8 +30,8 @@ arg_parser.add_argument(
     "--format", help="preferred file format/extension, or '*' for all", default="mp3"
 )
 arg_parser.add_argument(
-    "--scriptoutput",
-    help="show script output",
+    "--pythonoutput",
+    help="show python output",
     default=False,
     action="store_const",
     const=True,
@@ -56,21 +56,24 @@ args = arg_parser.parse_args()
 if not Path(args.outputpath).is_dir():
     arg_parser.error("outputpath is not a directory")
 
-outputpath = Path(args.outputpath)
+output_path = Path(args.outputpath)
 
 # TODO detect steam path from steam config
 if args.steamappspath and not Path(args.steamappspath).is_dir():
     arg_parser.error("steamappspath is not a directory")
 
-steamappspath = Path(args.steamappspath).joinpath("common")
+steamapps_path = Path(args.steamappspath).joinpath("common")
 
-gamedata = {}
+game_data = {}
 
-scriptdir = Path(__file__).resolve().parent
-for datafilepath in scriptdir.glob("gamedata/*.yaml"):
-    with open(datafilepath, "r") as datafile:
-        gamedata.update(yaml.safe_load(datafile.read()))
+script_dir = Path(__file__).resolve().parent
+for data_file_path in script_dir.glob("gamedata/*.yaml"):
+    with open(data_file_path, "r") as data_file:
+        game_data[data_file_path.stem] = yaml.safe_load(data_file.read())
 
+# TODO replace deprecated find_module and load_module
+for finder, name, ispkg in pkgutil.iter_modules(["gamedata"]):
+    game_data[name]["python"] = finder.find_module(name).load_module()
 
 # apply id3/ogg/etc album tag to file
 def file_tag(file, gamename):
@@ -101,25 +104,26 @@ def copy_and_tag(src, dst, gamename):
 
 
 if len(args.games) == 0:
-    args.games = gamedata.keys()
+    args.games = game_data.keys()
 
 # TODO: instead of looping through all the games we support, instead
 # loop through the steampath itchpath programfiles etc
-for gamename in args.games:
-    if gamename not in gamedata:
+for game_name in args.games:
+    if game_name not in game_data:
         raise FileNotFoundError
-    data = gamedata[gamename]
+    data = game_data[game_name]
     # replace / with _ to make valid directory name
-    outputgamepath = outputpath.joinpath(pathvalidate.sanitize_filename(gamename, "_"))
-    if Path(outputgamepath).exists() and not args.rescan:
+    output_game_path = output_path.joinpath(
+        pathvalidate.sanitize_filename(game_name, "_")
+    )
+    if Path(output_game_path).exists() and not args.rescan:
         continue
     if data:
         # TODO: support more platforms than steam
-        game_folder = steamappspath.joinpath(data["game_folder"])
+        game_folder = steamapps_path.joinpath(data["game_folder"])
         if not game_folder.is_dir():
             continue
-        Path(outputgamepath).mkdir(exist_ok=True)
-        print(gamename)
+        Path(output_game_path).mkdir(exist_ok=True)
         # FIXME: there must be a cleaner way to do this loop
         i = -1
         while i < len(data["extract_steps"]) - 1:
@@ -138,6 +142,7 @@ for gamename in args.games:
                         for newspec in filespec[::-1]:
                             newstep = copy.deepcopy(step)
                             newstep["filespec"] = newspec
+                            # FIXME: This is why the loop iteration has to use an index
                             data["extract_steps"].insert(i + 1, newstep)
                         continue
                     else:
@@ -152,40 +157,38 @@ for gamename in args.games:
                             filespec[0],
                         )
                 for filepath in game_folder.glob(filespec):
-                    copydst = outputgamepath
+                    copydst = output_game_path
                     if step.get("preserve_glob_directories", False):
                         filefolder = filepath.parent
-                        copydst = outputgamepath.joinpath(
+                        copydst = output_game_path.joinpath(
                             filefolder.relative_to(
                                 next(game_folder.glob(filespec)).parent
                             )
                         )
                         copydst.mkdir(parents=True, exist_ok=True)
                     try:
-                        copy_and_tag(filepath, copydst, gamename)
+                        copy_and_tag(filepath, copydst, game_name)
                     except FileExistsError:
                         pass
 
-            # TODO: support Windows alternative
-            # script contains a bash script to run to extract music somehow
-            if "script" in step:
-                subprocess.run(
-                    [
-                        "bash",
-                        "-c",
-                        string.Template(step["script"]).substitute(
-                            game_folder=game_folder, output_path=outputgamepath
-                        ),
-                    ],
-                    stdout=None if args.scriptoutput else subprocess.DEVNULL,
-                    stderr=None if args.scriptoutput else subprocess.DEVNULL,
+            # python contains a python script to run to extract music somehow
+            if "python" in step:
+                python_output = getattr(data["python"], step["python"])(
+                    {
+                        "output_game_path": output_game_path,
+                        "game_folder": game_folder,
+                        "args": args,
+                    }
                 )
+                if args.pythonoutput:
+                    print(python_output.stdout, end="")
+                    print(python_output.stderr, end="")
 
             # tag_filespec describes the output files to be tagged
             if "tag_filespec" in step:
                 # tag files from the script
-                for filepath in outputgamepath.glob(step["tag_filespec"]):
-                    file_tag(filepath, gamename)
+                for filepath in output_game_path.glob(step["tag_filespec"]):
+                    file_tag(filepath, game_name)
 
             # zip files
             if "zipfile" in step:
@@ -196,12 +199,12 @@ for gamename in args.games:
                         if fnmatch.fnmatch(filename, step["zipfilespec"]):
                             if (
                                 not args.overwrite
-                                and outputgamepath.joinpath(filename).exists()
+                                and output_game_path.joinpath(filename).exists()
                             ):
                                 # do not overwrite existing files
                                 continue
-                            zipfile.extract(filename, path=outputgamepath)
-                            file_tag(outputgamepath.joinpath(filename), gamename)
+                            zipfile.extract(filename, path=output_game_path)
+                            file_tag(output_game_path.joinpath(filename), game_name)
                 # TODO: eliminate unwanted levels of folder nesting here
 
             # xwb files
@@ -217,7 +220,7 @@ for gamename in args.games:
                     [
                         "unxwb",
                         "-d",
-                        outputgamepath,
+                        output_game_path,
                         "-b",
                         game_folder.joinpath(step["xsb_file"]),
                         str(step.get("xsb_offset", 0)),

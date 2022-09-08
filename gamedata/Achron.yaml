@@ -1,6 +1,6 @@
 ---
 
-Achron:
-  game_folder: Achron
-  extract_steps:
-    - filespec: "music/*.ogg"
+game_name: Achron
+game_folder: Achron
+extract_steps:
+  - filespec: "music/*.ogg"

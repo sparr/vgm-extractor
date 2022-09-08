@@ -1,6 +1,6 @@
 ---
 
-"Homeworld: Deserts of Kharak":
-  game_folder: Deserts of Kharak
-  extract_steps:
-    - filespec: ["Soundtrack/MP3/*.mp3", "Soundtrack/FLAC/*.flac"]
+game_name: "Homeworld: Deserts of Kharak"
+game_folder: Deserts of Kharak
+extract_steps:
+  - filespec: ["Soundtrack/MP3/*.mp3", "Soundtrack/FLAC/*.flac"]

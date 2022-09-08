@@ -1,6 +1,6 @@
 ---
 
-Stellaris:
-  game_folder: Stellaris
-  extract_steps:
-    - filespec: "music/*.ogg"
+game_name: Stellaris
+game_folder: Stellaris
+extract_steps:
+  - filespec: "music/*.ogg"

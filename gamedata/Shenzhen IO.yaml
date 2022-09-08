@@ -1,6 +1,6 @@
 ---
 
-Shenzhen I/O:
-  game_folder: SHENZHEN IO
-  extract_steps:
-    - filespec: "Content/music/*.ogg"
+game_name: Shenzhen I/O
+game_folder: SHENZHEN IO
+extract_steps:
+  - filespec: "Content/music/*.ogg"

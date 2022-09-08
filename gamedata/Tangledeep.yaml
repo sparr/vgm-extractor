@@ -1,7 +1,7 @@
 ---
 
-Tangledeep:
-  game_folder: Tangledeep
-  extract_steps:
-    - filespec: ["mp3/*.mp3", "flac/*.flac"]
-    - filespec: "Tangledeep Soundtrack Cover*"
+game_name: Tangledeep
+game_folder: Tangledeep
+extract_steps:
+  - filespec: ["mp3/*.mp3", "flac/*.flac"]
+  - filespec: "Tangledeep Soundtrack Cover*"

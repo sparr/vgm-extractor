@@ -1,8 +1,8 @@
 ---
 
-Terraria:
-  game_folder: Terraria
-  extract_steps:
-    - xwb_file: "Content/Wave Bank.xwb"
-      xsb_file: "Content/Sound Bank.xsb"
-      xsb_offset: 1514
+game_name: Terraria
+game_folder: Terraria
+extract_steps:
+  - xwb_file: "Content/Wave Bank.xwb"
+    xsb_file: "Content/Sound Bank.xsb"
+    xsb_offset: 1514

@@ -1,7 +1,7 @@
 ---
 
-SpaceChem:
-  game_folder: SpaceChem
-  extract_steps:
-    - filespec: "music/*.ogg"
-    - filespec: "images/spacechem.png"
+game_name: SpaceChem
+game_folder: SpaceChem
+extract_steps:
+  - filespec: "music/*.ogg"
+  - filespec: "images/spacechem.png"

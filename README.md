@@ -13,3 +13,11 @@ While many game developers publish soundtrack albums with or separately from the
 Example:
 
     vgm-extractor.py --outputpath ~/Music --steamappspath ~/.local/share/Steam/steamapps --format flac
+
+## Contributing
+
+At present we can only extract from a small list of games, installed via Steam. Adding support for additional games ranges from easy (no programming at all) to difficult depending on the game. Adding support for other game publishing platforms, operating systems, etc is a more involved undertaking. PRs are welcome!
+
+## Game Data
+
+[gamedata/README.md](gamedata/README.md) explains the contents of the game data files.

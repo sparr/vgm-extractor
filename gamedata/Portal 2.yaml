@@ -1,7 +1,7 @@
 ---
 
-Portal 2:
-  game_folder: Portal 2
-  extract_steps:
-    - filespec: "Soundtrack/**/*.mp3"
-      preserve_glob_directories: true
+game_name: Portal 2
+game_folder: Portal 2
+extract_steps:
+  - filespec: "Soundtrack/**/*.mp3"
+    preserve_glob_directories: true
