@@ -4,4 +4,4 @@ game_name: Space Engineers
 game_folder: SpaceEngineers
 extract_steps:
   - filespec: "Content/Audio/MUS/**/*.xwm"
-    preserve_glob_directories: true
+    strip_glob_path: "Content/Audio/MUS"

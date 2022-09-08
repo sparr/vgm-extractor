@@ -84,7 +84,7 @@ def file_tag(file, gamename):
             albumtag += " " + args.albumsuffix
         # TODO handle ID3 Frame types for non-Easy classes
         if "album" not in mutafile:
-            mutafile["album"] = albumtag
+            mutafile["album"] = mutagen.id3.TextFrame(encoding=3, text=[albumtag])
         mutafile.save()
 
 
@@ -138,33 +138,24 @@ for game_name in args.games:
                 if isinstance(filespec, list):
                     if args.format == "*":
                         # we want all formats
-                        # insert new steps, one for each format available
+                        # keep the whole filespec list
+                        pass
+                    else:
+                        filespec = [spec for spec in filespec if Path(spec).suffix[1:].lower() == args.format.lower()]
+                    if len(filespec) > 1:
+                        # insert new steps, one for each additional filespec of the proper format
                         for newspec in filespec[::-1]:
                             newstep = copy.deepcopy(step)
                             newstep["filespec"] = newspec
                             # FIXME: This is why the loop iteration has to use an index
                             data["extract_steps"].insert(i + 1, newstep)
-                        continue
-                    else:
-                        # use the first filespec with the right extension
-                        filespec = next(
-                            (
-                                spec
-                                for spec in filespec
-                                if Path(spec).suffix.lower() == args.format.lower()
-                            ),
-                            # or just use the first filespec
-                            filespec[0],
-                        )
+                    filespec = filespec[0]
                 for filepath in game_folder.glob(filespec):
                     copydst = output_game_path
-                    if step.get("preserve_glob_directories", False):
-                        filefolder = filepath.parent
-                        copydst = output_game_path.joinpath(
-                            filefolder.relative_to(
-                                next(game_folder.glob(filespec)).parent
-                            )
-                        )
+                    strip_glob_path = step.get("strip_glob_path", "")
+                    if strip_glob_path != "":
+                        strip_glob_full_path = game_folder.joinpath(strip_glob_path)
+                        copydst = output_game_path.joinpath(filepath.parent.relative_to(strip_glob_full_path))
                         copydst.mkdir(parents=True, exist_ok=True)
                     try:
                         copy_and_tag(filepath, copydst, game_name)

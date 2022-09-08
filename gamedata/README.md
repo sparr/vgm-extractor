@@ -19,7 +19,7 @@ YAML files describe how to extract music from the game, using a variety of commo
 * **game_folder** *string* The name of the game directory under steamapps/common or Program Files or similar
 * **extract_steps** *[]* Steps to be taken in order to extract music from the game folder
   * **filespec** *string or [string,...]* A glob pattern (like "music/*.mp3") of files to copy, or a list of patterns
-  * **preserve_glob_directories** *bool* Disable the default behavior of putting all the files in the same directory
+  * **strip_glob_path** *string* Disable the default behavior of putting all the files in the same directory, stripping only the directory(s) specified in this option
   * **python** *string* The name of a function in the matching python module to be run
   * **tag_filespec** *string* A glob pattern of files to apply id3 album tags to based on the game name
   * **xwb_file** *string* XACT Wave Bank archive to be unpacked with unxwb

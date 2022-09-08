@@ -1,0 +1,12 @@
+---
+
+game_name: Cyberpunk 2077
+game_folder: Cyberpunk 2077
+# TODO use WolvenKit.CLI and wwtools to extract audio from archive/pc/content/audio_*.archive
+extract_steps:
+  - filespec:
+      # Only in the Bonus Content DLC
+      - "BonusContent/soundtrack/wav/*/*.wav"
+      - "BonusContent/soundtrack/mp3/*/*.mp3"
+      - "BonusContent/soundtrack/flac/*/*.flac"
+    strip_glob_path: "BonusContent/soundtrack"
