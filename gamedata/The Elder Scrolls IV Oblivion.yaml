@@ -1,0 +1,6 @@
+---
+game_name: "The Elder Scrolls IV: Oblivion"
+game_folder: Oblivion
+extract_steps:
+- filespec: Data/Music/*/*.mp3
+- filespec: LauncherMusic.wav

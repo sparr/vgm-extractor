@@ -1,0 +1,7 @@
+---
+game_name: Baba Is You
+game_folder: Baba Is You
+extract_steps:
+- filespec: Data/Music/*.ogg
+- filespec: Data/Worlds/baba/Music/fun.ogg
+- filespec: Data/Sprites/baba_0_1.png

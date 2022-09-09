@@ -1,0 +1,7 @@
+---
+
+game_name: Aground
+game_folder: ["Aground", "Aground Demo"]
+extract_steps:
+  - filespec: "data/core/music/*.ogg"
+  - filespec: "data/ui/title_full.jpg"

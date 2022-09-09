@@ -1,0 +1,7 @@
+---
+game_name: Snapshot
+game_folder: snapshot
+extract_steps:
+- filespec: resources/audio/music/*.ogg
+- filespec: resources/audio/music/cutscenes/*.ogg
+- filespec: resources/art/engine/pic_icon.png

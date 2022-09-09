@@ -7,7 +7,7 @@ While many game developers publish soundtrack albums with or separately from the
 ## Usage
 
     vgm-extractor.py [-h] --outputpath OUTPUTPATH --steamappspath
-                     STEAMAPPSPATH [--format FORMAT]
+                     STEAMAPPSPATH [--format FORMAT] [-v]
                      [game [game ...]]
 
 Example:

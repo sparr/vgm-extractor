@@ -1,6 +1,6 @@
 ---
-game_name: Opus Magnum
-game_folder: Opus Magnum
+game_name: SHENZHEN IO
+game_folder: SHENZHEN IO
 extract_steps:
 - filespec: Content/music/*.ogg
 - filespec: Content/icon.png

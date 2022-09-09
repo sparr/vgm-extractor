@@ -1,0 +1,6 @@
+---
+game_name: Killing Floor
+game_folder: KillingFloor
+extract_steps:
+- filespec: Music/*.ogg
+- filespec: Web/images/h_logo.jpg

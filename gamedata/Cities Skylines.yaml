@@ -1,0 +1,9 @@
+---
+game_name: Cities Skylines
+game_folder: Cities_Skylines
+extract_steps:
+- filespec: Files/Radio/Music/Cities/*.ogg
+- filespec: Files/Radio/Music/Classical/*.ogg
+- filespec: Files/Radio/Music/GoldFM/*.ogg
+- filespec: Files/Radio/Music/Mars/*.ogg
+- filespec: LauncherAssets/game-logo.png

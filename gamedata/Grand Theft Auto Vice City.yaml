@@ -1,0 +1,7 @@
+---
+game_name: "Grand Theft Auto: Vice City"
+game_folder: Grand Theft Auto Vice City
+extract_steps:
+- filespec: Audio/Malibu.mp3
+- filespec: Audio/MallAmb.mp3
+- filespec: Audio/Strip.mp3

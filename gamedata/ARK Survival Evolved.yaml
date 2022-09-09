@@ -1,6 +1,5 @@
 ---
-
 game_name: ARK Survival Evolved
 game_folder: ARK
 extract_steps:
-  - filespec: "ShooterGame/Content/Ogg/*.ogg"
+- filespec: ShooterGame/Content/Ogg/*.ogg

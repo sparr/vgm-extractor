@@ -1,0 +1,7 @@
+---
+game_name: Deep Despair 2
+game_folder: [Deep Despair 2, Deep Despair 2 Demo]
+extract_steps:
+- filespec: data/music/Main Theme/*.mp3
+- filespec: data/music/Overworld/*.mp3
+- filespec: data/icon.png

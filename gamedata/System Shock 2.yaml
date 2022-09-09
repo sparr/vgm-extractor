@@ -1,0 +1,5 @@
+---
+game_name: System Shock 2
+game_folder: SS2
+extract_steps:
+- filespec: Bonus Content/Soundtrack/*.mp3

@@ -1,0 +1,5 @@
+---
+game_name: Stellar Overload
+game_folder: Stellar Overload
+extract_steps:
+- filespec: Sound Selection/*.mp3

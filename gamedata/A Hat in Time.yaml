@@ -1,0 +1,5 @@
+---
+game_name: A Hat in Time
+game_folder: HatinTime
+extract_steps:
+- filespec: HatinTimeGame/hatintime_05_herspaceship_streamed.mp3

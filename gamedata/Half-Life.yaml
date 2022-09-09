@@ -1,0 +1,6 @@
+---
+game_name: Half-Life
+game_folder: Half-Life
+extract_steps:
+- filespec: bshift/media/*.mp3
+- filespec: valve/media/*.mp3

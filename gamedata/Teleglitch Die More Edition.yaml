@@ -1,0 +1,6 @@
+---
+game_name: "Teleglitch: Die More Edition"
+game_folder: TeleglitchDME
+extract_steps:
+- filespec: sfx/intro.ogg
+- filespec: Soundtrack/*.mp3

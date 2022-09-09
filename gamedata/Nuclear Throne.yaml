@@ -1,6 +1,5 @@
 ---
-
 game_name: Nuclear Throne
 game_folder: Nuclear Throne
 extract_steps:
-  - filespec: "assets/mus*.ogg"
+- filespec: assets/mus*.ogg

@@ -1,6 +1,5 @@
 ---
-
 game_name: Diehard Dungeon
 game_folder: DiehardDungeon
 extract_steps:
-  - filespec: "Content/Music/*.ogg"
+- filespec: Content/Music/*.ogg

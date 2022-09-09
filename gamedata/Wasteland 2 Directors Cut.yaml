@@ -1,0 +1,8 @@
+---
+game_name: Wasteland 2 Director's Cut
+game_folder: Wasteland 2 Director's Cut
+extract_steps:
+- filespec: Soundtrack/Choir Songs EP/*.mp3
+- filespec: Soundtrack/Choir Songs EP/Folder.jpg
+- filespec: Soundtrack/Wasteland 2 Original Soundtrack/*.mp3
+- filespec: Soundtrack/Wasteland 2 Original Soundtrack/Folder.jpg

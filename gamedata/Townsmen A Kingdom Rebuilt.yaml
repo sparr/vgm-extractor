@@ -1,0 +1,6 @@
+---
+game_name: Townsmen - A Kingdom Rebuilt
+game_folder: Townsmen - A Kingdom Rebuilt
+extract_steps:
+- filespec: resources/sounds/bgm/*.ogg
+- filespec: resources/logo.png

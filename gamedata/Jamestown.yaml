@@ -1,0 +1,6 @@
+---
+game_name: Jamestown
+game_folder: Jamestown
+extract_steps:
+- filespec: Jamestown OST/*.mp3
+- filespec: Jamestown OST/cover.png

@@ -1,0 +1,5 @@
+---
+game_name: Patron
+game_folder: [Patron, Patron Demo]
+extract_steps:
+- filespec: Data/Sound/Music/*.wav

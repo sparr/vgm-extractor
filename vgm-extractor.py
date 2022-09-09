@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
 import argparse
+from cmath import inf
 import copy
 import fnmatch
+import inspect ##FIXME TEMP
 import mutagen
 import pathvalidate
 import pkgutil
@@ -20,6 +22,7 @@ arg_parser.add_argument("--outputpath", help="path to output folder", required=T
 arg_parser.add_argument(
     "--steamappspath", help="path to steamapps folder", required=True
 )
+arg_parser.add_argument('-v', '--verbose', action='count', default=0)
 arg_parser.add_argument(
     "--albumsuffix",
     help="appended to the game name in the Album metadata for each track",
@@ -28,13 +31,6 @@ arg_parser.add_argument(
 # TODO priority order of formats
 arg_parser.add_argument(
     "--format", help="preferred file format/extension, or '*' for all", default="mp3"
-)
-arg_parser.add_argument(
-    "--pythonoutput",
-    help="show python output",
-    default=False,
-    action="store_const",
-    const=True,
 )
 arg_parser.add_argument(
     "--overwrite",
@@ -49,6 +45,12 @@ arg_parser.add_argument(
     default=False,
     action="store_const",
     const=True,
+)
+arg_parser.add_argument(
+    "--minduration",
+    help="minimum duration in seconds of files to keep",
+    type=int,
+    default=60,
 )
 
 args = arg_parser.parse_args()
@@ -84,7 +86,10 @@ def file_tag(file, gamename):
             albumtag += " " + args.albumsuffix
         # TODO handle ID3 Frame types for non-Easy classes
         if "album" not in mutafile:
-            mutafile["album"] = mutagen.id3.TextFrame(encoding=3, text=[albumtag])
+            try:
+                mutafile["album"] = albumtag
+            except:
+                mutafile["album"] = mutagen.id3.TextFrame(encoding=3, text=[albumtag])
         mutafile.save()
 
 
@@ -97,6 +102,12 @@ def file_copy(src, dst):
     shutil.copy(src, dst)
     return dst
 
+def file_duration(file):
+    mutafile = mutagen.File(file, easy=True)
+    if mutafile is not None:
+        return mutafile.info.length
+    else:
+        return inf # unrecognized sound files and non sound files
 
 def copy_and_tag(src, dst, gamename):
     dst = file_copy(src, dst)
@@ -113,17 +124,25 @@ for game_name in args.games:
         raise FileNotFoundError
     data = game_data[game_name]
     # replace / with _ to make valid directory name
-    output_game_path = output_path.joinpath(
-        pathvalidate.sanitize_filename(game_name, "_")
-    )
-    if Path(output_game_path).exists() and not args.rescan:
+    output_game_path = output_path / pathvalidate.sanitize_filename(game_name, "_")
+    if output_game_path.exists() and not args.rescan:
         continue
     if data:
         # TODO: support more platforms than steam
-        game_folder = steamapps_path.joinpath(data["game_folder"])
-        if not game_folder.is_dir():
+        game_folders = data["game_folder"]
+        if isinstance(game_folders, str):
+            game_folders = [game_folders]
+        found_game_folder = None
+        for game_folder in game_folders:
+            game_folder = steamapps_path.joinpath(game_folder)
+            if game_folder.is_dir():
+                found_game_folder = game_folder
+                break
+        if not found_game_folder:
             continue
         Path(output_game_path).mkdir(exist_ok=True)
+        if args.verbose > 0:
+            print(game_name)
         # FIXME: there must be a cleaner way to do this loop
         i = -1
         while i < len(data["extract_steps"]) - 1:
@@ -158,7 +177,10 @@ for game_name in args.games:
                         copydst = output_game_path.joinpath(filepath.parent.relative_to(strip_glob_full_path))
                         copydst.mkdir(parents=True, exist_ok=True)
                     try:
-                        copy_and_tag(filepath, copydst, game_name)
+                        if file_duration(filepath) >= args.minduration:
+                            if args.verbose > 1:
+                                print("  " + str(filepath.relative_to(game_folder)))
+                            copy_and_tag(filepath, copydst, game_name)
                     except FileExistsError:
                         pass
 
@@ -171,9 +193,13 @@ for game_name in args.games:
                         "args": args,
                     }
                 )
-                if python_output and args.pythonoutput:
-                    print(python_output.stdout, end="")
-                    print(python_output.stderr, end="")
+                if python_output:
+                    if args.verbose > 2:
+                        print(python_output.stdout, end="")
+                        print(python_output.stderr, end="")
+                    if args.verbose > 1:
+                        for file in python_output.args:
+                            print("  " + file)
 
             # tag_filespec describes the output files to be tagged
             if "tag_filespec" in step:
@@ -220,3 +246,8 @@ for game_name in args.games:
                     stdin=yes.stdout,
                 )
                 yes.stdout.close()
+        try:
+            output_game_path.rmdir()
+        except:
+            pass
+

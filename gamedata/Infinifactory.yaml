@@ -1,7 +1,6 @@
 ---
-
 game_name: Infinifactory
 game_folder: Infinifactory
 extract_steps:
-  - filespec: "OST/*.mp3"
-  - filespec: "OST/*.png"
+- filespec: OST/*.mp3
+- filespec: OST/Matthew S Burns - Infinifactory OST.png

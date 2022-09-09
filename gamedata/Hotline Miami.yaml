@@ -1,0 +1,5 @@
+---
+game_name: Hotline Miami
+game_folder: hotline_miami
+extract_steps:
+- filespec: '*.ogg'

@@ -1,0 +1,7 @@
+---
+
+game_name: 7 Billion Humans
+game_folder: 7 Billion Humans
+extract_steps:
+  - filespec: "soundtrack/*.mp3"
+  - filespec: "soundtrack/AlbumArtwork.png"

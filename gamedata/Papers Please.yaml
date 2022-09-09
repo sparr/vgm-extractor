@@ -1,0 +1,5 @@
+---
+game_name: Papers Please
+game_folder: PapersPlease
+extract_steps:
+- filespec: assets/music/*.ogg

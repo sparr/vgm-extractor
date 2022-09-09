@@ -1,6 +1,6 @@
 ---
-
 game_name: EXAPUNKS
 game_folder: EXAPUNKS
 extract_steps:
-  - filespec: "Content/music/*.ogg"
+- filespec: Content/music/*.ogg
+- filespec: Content/icon.png

@@ -1,0 +1,5 @@
+---
+game_name: Barotrauma
+game_folder: Barotrauma
+extract_steps:
+- filespec: Content/Sounds/Music/*.ogg
