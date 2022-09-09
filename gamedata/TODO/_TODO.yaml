@@ -4,32 +4,50 @@ DOTA 2:
 # Valve vpk files not compatible with TF2/bin/vpk_linux32
 # Some work in GCFscape http://nemesis.thewavelength.net/index.php?p=25 but can't find music
 
-Rust:
-# ???
-
-Skyrim:
-# need a tool or script to extract BSA files version 105
-
-Homeworld Remastered:
-# needs tools like Homesong, Biggie, BigX to extract HW1 and HW2 music
-
-Tooth and Tail:
-# RIFF bank files, maybe extract with tool like quickbms?
-
-Rusty Lake Roots:
-# SWF with embedded MP3(?)
-
-N++:
-# Soundtrack.FSB file that doesn't work in http://aezay.dk/aezay/fsbextractor/
-
-Silicon Zeroes:
-# .bank files?
+Forager:
+- assets/audiogroup1.dat # maybe something using libiff can read this?
 
 A Hat In Time:
 # no obvious music files, possibly inside .umap levels?
 
-# "OGG" files that contain some weird RIFF audio
+Homeworld Remastered:
+# needs tools like Homesong, Biggie, BigX to extract HW1 and HW2 music
+
+Kingdom Rush Origins:
+# main game binary contains embedded kr3-desktop/assets/sounds/files/*.ogg
+
 Limbo:
+# "OGG" files that contain some weird RIFF audio
+
+N++:
+# Soundtrack.FSB file that doesn't work in http://aezay.dk/aezay/fsbextractor/
+
+Rust:
+# ???
+
+Rusty Lake Roots:
+# SWF with embedded MP3(?)
+
+Silicon Zeroes:
+# .bank files?
+
+Skyrim:
+# need a tool or script to extract BSA files version 105
+
+This War of Mine:
+# $ file sounds.dat
+# sounds.dat: gzip compressed data, from FAT filesystem (MS-DOS, OS/2, NT), original size modulo 2^32 4294901760
+# $ gunzip -S dat sounds.dat
+# gzip: sounds.dat: invalid compressed data--format violated
+
+Tooth and Tail:
+# RIFF bank files, maybe extract with tool like quickbms?
+
+# "wem" files that idenfity as RIFF data containing WAVE audio
+Crying Suns: cs_Data/StreamingAssets/Audio/GeneratedSoundBanks/Windows/*.wem
+The Escapists 2:
+  - TheEscapists2_Data/StreamingAssets/Audio/GeneratedSoundBanks/Linux/*.wem
+  - TheEscapists2_Data/StreamingAssets/Audio/GeneratedSoundBanks/Linux/*.bnk
 
 # Unity games need a .asset/.assets/.resS unpacker:
 7 Days To Die:
@@ -37,25 +55,49 @@ Agricola All Creatures Big and Small:
 Aloft:
 Among the Sleep:
 Among Us:
+Autonauts:
+Carto:
+Convoy:
+Cthulu Realms:
+Don't Escape:
 Dex:
 Dungeons 3:
 Duskers:
+Dyson Sphere Program:
 Factory Town:
 Gladiabots:
 God is a Cube:
+Hollow Knight:
 Holy Potatoes! We're in Space!:
+Hue:
+Inscryption:
+INSIDE:
+Interplanetary Enhanced Edition:
 Keep Talking and Nobody Explodes:
 Kerbal Space Program:
+Koloro:
+MicroTown:
+Mini Worlds Polyglot:
+My Time at Sandrock:
 Mysterium:
 Niche:
 Nimbatus:
 One Deck Dungeon:
 Rimworld:
+Risk of Rain 2:
 Scythe Digital Edition:
+Slipways:
+SpaceCrew:
+Subnautica:
 Tacoma:
 The First Tree:
+The Long Dark:
 the Sequence:
 The Signal From Tölva:
 Throne of Lies:
+Tinytopia:
 TIS-100:
+UnderMine:
 Unturned:
+Valheim:
+WHAT THE GOLF:

@@ -5,13 +5,13 @@ Dawn of War III:
   # extract_steps:
   #   # wem is mostly music, some sound effects
   #   # raw PCM audio, 8 minutes ~= 110MB!
-  #   - filespec: ["share/data/dow3/audio/audio/*.wem"]
-  #   - filespec: ["share/data/dow3/audio/audiolow/*.wem"]
-  #   - filespec: ["share/data/dow3/audio/audiohigh/*.wem"]
+  #   - filespec: "share/data/dow3/audio/audio/*.wem"
+  #   - filespec: "share/data/dow3/audio/audiolow/*.wem"
+  #   - filespec: "share/data/dow3/audio/audiohigh/*.wem"
   #   # bnk archives also include some music
-  #   - filespec: ["share/data/dow3/audio/audio/*.bnk"]
-  #   - filespec: ["share/data/dow3/audio/audiolow/*.bnk"]
-  #   - filespec: ["share/data/dow3/audio/audiohigh/*.bnk"]
+  #   - filespec: "share/data/dow3/audio/audio/*.bnk"
+  #   - filespec: "share/data/dow3/audio/audiolow/*.bnk"
+  #   - filespec: "share/data/dow3/audio/audiohigh/*.bnk"
 
 # mplayer can play the wem files, but I can't find anything that can convert them (not even mencoder).
 # also can't find anything to open these particular bnk files

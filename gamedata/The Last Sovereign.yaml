@@ -1,0 +1,5 @@
+---
+game_name: The Last Sovereign
+game_folder: The Last Sovereign
+extract_steps:
+- filespec: Audio/BGM/*.ogg

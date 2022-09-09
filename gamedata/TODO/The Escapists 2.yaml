@@ -1,9 +1,0 @@
----
-
-The Escapists 2:
-  # game_folder: The Escapists 2
-  # extract_steps:
-  #   - filespec: "TheEscapists2_Data/StreamingAssets/Audio/GeneratedSoundBanks/Linux/*.wem"
-  #   - filespec: "TheEscapists2_Data/StreamingAssets/Audio/GeneratedSoundBanks/Linux/*.bnk"
-
-# wem files contain RIFF audio but mplayer can't play it?

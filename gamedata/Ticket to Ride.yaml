@@ -1,0 +1,8 @@
+---
+game_name: Ticket to Ride
+game_folder: Ticket to Ride
+extract_steps:
+- filespec:
+  - Resources/music/*.ogg
+  - Resources/music/*.mp3
+  - Resources/music/*.m4a

@@ -1,0 +1,5 @@
+---
+game_name: ComPressure
+game_folder: [ComPressure, ComPressure Demo]
+extract_steps:
+- filespec: music.ogg # TODO multiple tracks back to back need to be split apart

@@ -1,0 +1,5 @@
+---
+game_name: Songs of Syx
+game_folder: Songs of Syx
+extract_steps:
+- filespec: res/data/assets/sound/music/*/*.ogg

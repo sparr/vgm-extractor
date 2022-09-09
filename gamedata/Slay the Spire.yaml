@@ -1,0 +1,8 @@
+---
+game_name: Slay the Spire
+game_folder: SlayTheSpire
+extract_steps:
+- zipfile: desktop-1.0.jar
+  zipfilespec:
+  - audio/music/*.ogg
+  - images/ui/title_logo/eng.png # or zhs.png for Simplified Chinese?

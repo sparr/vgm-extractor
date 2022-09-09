@@ -1,0 +1,7 @@
+---
+game_name: Space Haven
+game_folder: SpaceHaven
+extract_steps:
+- zipfile: spacehaven.jar
+  zipfilespec:
+  - library/music/ogg/*.ogg

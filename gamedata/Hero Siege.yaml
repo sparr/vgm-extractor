@@ -1,0 +1,9 @@
+---
+game_name: Hero Siege
+game_folder: HeroSiege
+extract_steps:
+- filespec:
+  - bin/*_mus.ogg
+  - linux/assets/*_mus.ogg
+  - mac/Hero_Siege.app/Contents/Resources/*_mus.ogg
+
