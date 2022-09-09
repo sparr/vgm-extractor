@@ -6,13 +6,15 @@ While many game developers publish soundtrack albums with or separately from the
 
 ## Usage
 
-    vgm-extractor.py [-h] --outputpath OUTPUTPATH --steamappspath
-                     STEAMAPPSPATH [--format FORMAT] [-v]
+    vgm-extractor.py [-h] [-v[v...]] --outputpath OUTPUTPATH
+                     [--steamlibrarypath STEAMLIBRARYPATH]
+                     [--albumsuffix ALBUMSUFFIX] [--format FORMAT]
+                     [--overwrite] [--rescan] [--minduration MINDURATION]
                      [game [game ...]]
 
 Example:
 
-    vgm-extractor.py --outputpath ~/Music --steamappspath ~/.local/share/Steam/steamapps --format flac
+    vgm-extractor.py --outputpath ~/Music --format flac
 
 ## Contributing
 

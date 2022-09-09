@@ -3,7 +3,6 @@
 import argparse
 import copy
 import fnmatch
-import inspect ##FIXME TEMP
 import mutagen
 import pathvalidate
 import pkgutil
@@ -12,17 +11,18 @@ import subprocess
 import vdf
 import yaml
 from pathlib import Path
+from sys import platform
 from zipfile import ZipFile
 
 arg_parser = argparse.ArgumentParser(
     formatter_class=argparse.ArgumentDefaultsHelpFormatter
 )
+arg_parser.add_argument('-v', '--verbose', action='count', default=0)
 arg_parser.add_argument("games", metavar="game", nargs="*", help="games to extract")
 arg_parser.add_argument("--outputpath", help="path to output folder", required=True)
 arg_parser.add_argument(
-    "--steamappspath", help="path to steamapps folder", required=True
+    "--steamlibrarypath", help="path to steam library folder which contains steamapps/", required=False
 )
-arg_parser.add_argument('-v', '--verbose', action='count', default=0)
 arg_parser.add_argument(
     "--albumsuffix",
     help="appended to the game name in the Album metadata for each track",
@@ -60,11 +60,26 @@ if not Path(args.outputpath).is_dir():
 
 output_path = Path(args.outputpath)
 
-# TODO detect steam path from steam config
-if args.steamappspath and not Path(args.steamappspath).is_dir():
-    arg_parser.error("steamappspath is not a directory")
+steam_library_paths = []
 
-steamapps_path = Path(args.steamappspath).joinpath("common")
+if args.steamlibrarypath:
+    if not Path(args.steamlibrarypath).is_dir():
+        arg_parser.error("steamlibrarypath is not a directory")
+    steam_library_paths = [Path(args.steamlibrarypath)]
+else:
+    if platform.startswith('win'):
+        pass
+    # TODO support mac, probably looking in ~/Library/Application Support/Steam
+    else:
+        # ~/.steam/steam is a symlink to the Steam installation directory
+        with open(Path.home() / ".steam/steam/config/libraryfolders.vdf") as vdf_file:
+            libraryfolders_vdf = vdf.parse(vdf_file)
+        for k,v in libraryfolders_vdf["libraryfolders"].items():
+            if k.isdigit(): # library folder entries have keys like "0" "1" etc
+                path = Path(v["path"])
+                if path.is_dir():
+                    steam_library_paths.append(path)
+        # TODO fallback on .steam/steam/config/config.vdf BaseInstallFolder_1
 
 game_data = {}
 
@@ -133,17 +148,20 @@ for game_name in args.games:
         if isinstance(game_folders, str):
             game_folders = [game_folders]
         found_game_folder = None
-        for game_folder in game_folders:
-            game_folder = steamapps_path.joinpath(game_folder)
-            if game_folder.is_dir():
-                found_game_folder = game_folder
+        for steam_library_path in steam_library_paths:
+            for game_folder in game_folders:
+                game_folder = steam_library_path / "steamapps/common" / game_folder
+                if game_folder.is_dir():
+                    found_game_folder = game_folder
+                    break
+            if found_game_folder:
                 break
         if not found_game_folder:
             continue
         Path(output_game_path).mkdir(exist_ok=True)
         if args.verbose > 0:
             print(game_name)
-        # FIXME: there must be a cleaner way to do this loop
+        # FIXME: better handle multiple filespec steps, avoid iteration hack
         i = -1
         while i < len(data["extract_steps"]) - 1:
             i += 1
