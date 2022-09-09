@@ -12,7 +12,11 @@ import shutil
 import subprocess
 import yaml
 from pathlib import Path
+from sys import platform
+if platform.startswith('win'):
+    import winreg
 from zipfile import ZipFile
+
 
 arg_parser = argparse.ArgumentParser(
     formatter_class=argparse.ArgumentDefaultsHelpFormatter
@@ -20,7 +24,7 @@ arg_parser = argparse.ArgumentParser(
 arg_parser.add_argument("games", metavar="game", nargs="*", help="games to extract")
 arg_parser.add_argument("--outputpath", help="path to output folder", required=True)
 arg_parser.add_argument(
-    "--steamappspath", help="path to steamapps folder", required=True
+    "--steamappspath", help="path to steamapps folder", required=False
 )
 arg_parser.add_argument('-v', '--verbose', action='count', default=0)
 arg_parser.add_argument(
@@ -55,16 +59,25 @@ arg_parser.add_argument(
 
 args = arg_parser.parse_args()
 
-if not Path(args.outputpath).is_dir():
-    arg_parser.error("outputpath is not a directory")
+# Detect Steam installation directory (TODO: support non-windows OS)
+if args.steamappspath or not platform.startswith('win'):
+    if not Path(args.steamappspath).is_dir():
+        arg_parser.error(f'steamappspath is not a directory: {args.steamappspath}')
+else:
+    import winreg
+    try:
+        hkey = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\WOW6432Node\Valve\Steam")
+        steam_install_path = winreg.QueryValueEx(hkey, "InstallPath")[0]
+        steamapps_path = Path(steam_install_path).joinpath("steamapps/common")
+    except FileNotFoundError:
+        arg_parser.error("failed to detect Steam installation, use --steamapppath argument instead")
 
-output_path = Path(args.outputpath)
+if Path(args.outputpath).is_dir():
+    output_path = Path(args.outputpath)
+else:
+    arg_parser.error(f'outputpath is not a directory: {args.outputpath}')
 
-# TODO detect steam path from steam config
-if args.steamappspath and not Path(args.steamappspath).is_dir():
-    arg_parser.error("steamappspath is not a directory")
-
-steamapps_path = Path(args.steamappspath).joinpath("common")
+print(steamapps_path)
 
 game_data = {}
 
