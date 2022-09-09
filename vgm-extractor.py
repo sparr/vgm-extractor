@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import argparse
-from cmath import inf
 import copy
 import fnmatch
 import inspect ##FIXME TEMP
@@ -10,6 +9,7 @@ import pathvalidate
 import pkgutil
 import shutil
 import subprocess
+import vdf
 import yaml
 from pathlib import Path
 from zipfile import ZipFile
@@ -107,7 +107,7 @@ def file_duration(file):
     if mutafile is not None:
         return mutafile.info.length
     else:
-        return inf # unrecognized sound files and non sound files
+        return float('inf') # unrecognized sound files and non sound files
 
 def copy_and_tag(src, dst, gamename):
     dst = file_copy(src, dst)
