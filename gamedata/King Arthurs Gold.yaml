@@ -2,7 +2,7 @@
 game_name: King Arthur's Gold
 game_folder: King Arthur's Gold
 extract_steps:
-- filespec: Base/Sounds/Music/KAGWorld*.ogg # 30-50 seconds, fails default minduration
+- filespec: Base/Sounds/Music/KAGWorld*.ogg
 - filespec: Base/Sounds/Music/world_intro.ogg
 - filespec: KAG.ico
 

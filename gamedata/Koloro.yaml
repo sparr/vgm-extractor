@@ -1,0 +1,18 @@
+---
+game_name: Koloro
+game_folder: Koloro
+extract_steps:
+- assetsfile: Koloro_Data/resources.assets
+  assetsfilespec:
+  - AudioClip/M??.ogg
+  - AudioClip/M??-?.ogg
+  - AudioClip/End.ogg
+  - AudioClip/Guit.ogg
+  - AudioClip/Haaa.ogg
+  - AudioClip/LevelSelectionAmbience.ogg
+  - AudioClip/Main.ogg
+  - AudioClip/MainHigh.ogg
+  - AudioClip/MainLow.ogg
+  - AudioClip/Menu.ogg
+  - AudioClip/Nappe.ogg
+  

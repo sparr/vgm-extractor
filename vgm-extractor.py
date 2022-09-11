@@ -4,6 +4,7 @@ import argparse
 import copy
 import fnmatch
 import mutagen
+import os
 import pathvalidate
 import pkgutil
 import shutil
@@ -23,13 +24,16 @@ arg_parser = argparse.ArgumentParser(
 )
 arg_parser.add_argument("-v", "--verbose", action="count", default=0)
 arg_parser.add_argument("games", metavar="game", nargs="*", help="games to extract")
-arg_parser.add_argument("--outputpath", help="path to output folder", required=True)
+arg_parser.add_argument(
+    "-o", "--outputpath", help="path to output folder", required=True
+)
 arg_parser.add_argument(
     "--steamlibrarypath",
     help="path to steam library folder which contains steamapps/",
     required=False,
 )
 arg_parser.add_argument(
+    "-a",
     "--albumsuffix",
     help="appended to the game name in the Album metadata for each track",
     default="[VGMX]",
@@ -56,7 +60,7 @@ arg_parser.add_argument(
     "--minduration",
     help="minimum duration in seconds of files to keep",
     type=int,
-    default=60,
+    default=30,
 )
 
 args = arg_parser.parse_args()
@@ -142,10 +146,25 @@ def file_tag(file, gamename):
 def file_copy(src, dst):
     if Path(dst).is_dir():
         dst = Path(dst).joinpath(Path(src).name)
+    else:
+        if not (Path(dst).parent.is_dir()):
+            os.makedirs(Path(dst).parent, exist_ok=True)
     if not args.overwrite and dst.exists():
         # do not overwrite existing files
         raise FileExistsError
     shutil.copy(src, dst)
+    return dst
+
+def file_move(src, dst):
+    if Path(dst).is_dir():
+        dst = Path(dst).joinpath(Path(src).name)
+    else:
+        if not (Path(dst).parent.is_dir()):
+            os.makedirs(Path(dst).parent, exist_ok=True)
+    if not args.overwrite and dst.exists():
+        # do not overwrite existing files
+        raise FileExistsError
+    shutil.move(src, dst)
     return dst
 
 
@@ -159,6 +178,10 @@ def file_duration(file):
 
 def copy_and_tag(src, dst, gamename):
     dst = file_copy(src, dst)
+    file_tag(dst, gamename)
+
+def move_and_tag(src, dst, gamename):
+    dst = file_move(src, dst)
     file_tag(dst, gamename)
 
 
@@ -315,6 +338,7 @@ for game_name in args.games:
                 else:
                     prompt_key = "n"
                 yes = subprocess.Popen(["yes", prompt_key], stdout=subprocess.PIPE)
+                # TODO capture output, suppress based on verbosity
                 unxwb = subprocess.run(
                     [
                         "unxwb",
@@ -328,4 +352,34 @@ for game_name in args.games:
                     stdin=yes.stdout,
                 )
                 yes.stdout.close()
+
+            # Unity assets files
+            if "assetsfile" in step and shutil.which("AssetRipper"):
+                # TODO capture output, suppress based on verbosity
+                ripper = subprocess.run(
+                    [
+                        "AssetRipper",
+                        "-q",
+                        "-o",
+                        output_game_path,
+                        "--logFile",
+                        output_game_path / "AssetRipper.log",
+                        game_folder.joinpath(step["assetsfile"])
+                    ]
+                )
+                assets_path = output_game_path / "ExportedProject" / "Assets"
+                assetsfilespec = step.get("assetsfilespec", "*")
+                assetsexcludespec = step.get("assetsexcludespec", "")
+                if not isinstance(assetsfilespec, list):
+                    assetsfilespec = [assetsfilespec]
+                # TODO sync with other multiple filespec behavior 
+                for filespec in assetsfilespec:
+                    for filepath in assets_path.glob(filespec):
+                        if not fnmatch.fnmatch(filepath.relative_to(assets_path), assetsexcludespec):
+                            if file_duration(filepath) >= args.minduration:
+                                # TODO optionally strip leading directories, make consistent between step types
+                                copydst = output_game_path / filepath.relative_to(assets_path)
+                                move_and_tag(filepath, copydst, game_name)
+                shutil.rmtree(output_game_path / "ExportedProject")
+                os.remove(output_game_path / "AssetRipper.log")
         remove_empty_dir_tree(output_game_path)

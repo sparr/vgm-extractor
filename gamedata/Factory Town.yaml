@@ -1,0 +1,7 @@
+---
+game_name: Factory Town
+game_folder: Factory Town
+extract_steps:
+- assetsfile: Factory Town_Data/sharedassets0.assets
+  assetsfilespec:
+  - AudioClip/Factory Town *.ogg

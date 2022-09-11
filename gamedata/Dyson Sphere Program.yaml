@@ -1,0 +1,14 @@
+---
+game_name: Dyson Sphere Program
+game_folder: Dyson Sphere Program
+extract_steps:
+- assetsfile: DSPGAME_Data/resources.assets
+  assetsfilespec:
+  - AudioClip/black-hole.ogg
+  - AudioClip/dyson-sphere-*.ogg
+  - AudioClip/epic-trailer-*.ogg
+  - AudioClip/factory-*.ogg
+  - AudioClip/iris-*.ogg
+  - AudioClip/main-theme-body.ogg
+  - AudioClip/planet-*.ogg
+  - AudioClip/universe-*.ogg

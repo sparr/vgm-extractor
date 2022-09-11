@@ -1,0 +1,34 @@
+---
+game_name: RimWorld
+game_folder: RimWorld
+extract_steps:
+- assetsfile: RimWorldLinux_Data/resources.assets # Windows?
+  assetsfilespec:
+  - AudioClip/A_New_Day.ogg
+  - AudioClip/Alpaca.ogg
+  - AudioClip/Barnstar.ogg
+  - AudioClip/Ceta.ogg
+  - AudioClip/Chaos_Bringer.ogg
+  - AudioClip/Close_The_Gates.ogg
+  - AudioClip/Dont_Freeze_Up.ogg
+  - AudioClip/End_Credits_Song.ogg
+  - AudioClip/Entry_Ambience_Full.ogg
+  - AudioClip/Gathering_In.ogg
+  - AudioClip/Here_It_Comes.ogg
+  - AudioClip/I_Like_It_Here.ogg
+  - AudioClip/Ice_Shaman.ogg
+  - AudioClip/Jovian_Cycle.ogg
+  - AudioClip/Moon_Harvest.ogg
+  - AudioClip/Moving_On.ogg
+  - AudioClip/Night_And_Day.ogg
+  - AudioClip/Noodle_*.ogg
+  - AudioClip/Riding_Out.ogg
+  - AudioClip/Rough_Trail.ogg
+  - AudioClip/Seasons_Turn.ogg
+  - AudioClip/Space_Junk.ogg
+  - AudioClip/Terraformer.ogg
+  - AudioClip/These_Lands.ogg
+  - AudioClip/Traces.ogg
+  - AudioClip/Tribal_Assembly.ogg
+  - AudioClip/What_Gravity.ogg
+

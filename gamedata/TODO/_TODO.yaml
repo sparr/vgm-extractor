@@ -43,11 +43,11 @@ This War of Mine:
 Tooth and Tail:
 # RIFF bank files, maybe extract with tool like quickbms?
 
-# "wem" files that idenfity as RIFF data containing WAVE audio
-Crying Suns: cs_Data/StreamingAssets/Audio/GeneratedSoundBanks/Windows/*.wem
+# Unity games where *_Data/StreamingAssets/Audio/GeneratedSoundBanks/[Windows or Linux]/ contains WEM and BNK files
+Crying Suns:
 The Escapists 2:
-  - TheEscapists2_Data/StreamingAssets/Audio/GeneratedSoundBanks/Linux/*.wem
-  - TheEscapists2_Data/StreamingAssets/Audio/GeneratedSoundBanks/Linux/*.bnk
+My Time at Sandrock:
+Risk of Rain 2:
 
 # Unity games need a .asset/.assets/.resS unpacker:
 7 Days To Die:
@@ -55,36 +55,24 @@ Agricola All Creatures Big and Small:
 Aloft:
 Among the Sleep:
 Among Us:
-Autonauts:
-Carto:
+Carto: AssetRipper finds just one AudioClip
 Convoy:
 Cthulu Realms:
-Don't Escape:
 Dex:
 Dungeons 3:
 Duskers:
-Dyson Sphere Program:
-Factory Town:
-Gladiabots:
+Gladiabots: AssetRipper finds 9 short AudioClips for sound effects
 God is a Cube:
-Hollow Knight:
 Holy Potatoes! We're in Space!:
-Hue:
-Inscryption:
-INSIDE:
-Interplanetary Enhanced Edition:
+Hue: AR finds 368 clips, mostly sfx, a few short ambient loops
+INSIDE: AR finds no AudioClips, some unknown and unreadable assets
 Keep Talking and Nobody Explodes:
 Kerbal Space Program:
-Koloro:
-MicroTown:
-Mini Worlds Polyglot:
-My Time at Sandrock:
+Mini Worlds Polyglot: AR finds 7285 clips, almost all <1s, all <10s
 Mysterium:
 Niche:
 Nimbatus:
 One Deck Dungeon:
-Rimworld:
-Risk of Rain 2:
 Scythe Digital Edition:
 Slipways:
 SpaceCrew:
