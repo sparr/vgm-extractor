@@ -59,6 +59,8 @@ class Config:
                 "Failed to locate any Steam library directory, use --steamlibrarypath argument instead"
             )
         
+        self.gamedata = gamedata
+
         self.games = args.games
         if len(self.games) == 0:
             self.games = sorted(gamedata.keys())

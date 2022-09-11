@@ -3,4 +3,4 @@ game_name: Don't Escape
 game_folder: DontEscape
 extract_steps:
 - assetsfile: dontescape_Data/resources.assets
-  assetsfilespec: AudioClip/SW_Cue*.ogg
+  assetsfilespec: SW_Cue*

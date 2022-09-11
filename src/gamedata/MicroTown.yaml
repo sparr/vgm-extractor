@@ -4,6 +4,6 @@ game_folder: MicroTown
 extract_steps:
 - assetsfile: MicroTown_Data/sharedassets1.assets
   assetsfilespec:
-  - AudioClip/gameplay_?? - *.ogg
-  - AudioClip/main_theme - MicroTown.ogg
+  - gameplay_?? - *
+  - main_theme - MicroTown
   

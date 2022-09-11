@@ -4,11 +4,11 @@ game_folder: Inscryption
 extract_steps:
 - assetsfile: Inscryption_Data/resources.assets
   assetsfilespec:
-    - AudioClip/finale*_ambience.ogg
-    - AudioClip/finalemagnificus.ogg
-    - AudioClip/part3_ambience*.ogg
-    - AudioClip/part3_boss*.ogg
-    - AudioClip/gbc_*.ogg # includes two short clips
-    - AudioClip/hex_*.ogg
-    - AudioClip/part1_finale*.ogg
-    - AudioClip/boss_*base.ogg
+  - finale*_ambience
+  - finalemagnificus
+  - part3_ambience*
+  - part3_boss*
+  - gbc_* # includes two short clips
+  - hex_*
+  - part1_finale*
+  - boss_*base

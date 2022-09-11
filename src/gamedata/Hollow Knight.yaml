@@ -3,4 +3,4 @@ game_name: Hollow Knight
 game_folder: Hollow Knight
 extract_steps:
 - assetsfile: hollow_knight_Data/resources.assets
-  assetsfilespec: AudioClip/Hollow Shade Music.ogg # all the other big clips are just ambient background effects
+  assetsfilespec: Hollow Shade Music # all the other big clips are just ambient background effects

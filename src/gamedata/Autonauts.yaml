@@ -2,6 +2,6 @@
 game_name: Autonauts
 game_folder: Autonauts
 extract_steps:
-- assetsfile: Autonauts_Data/sharedassets2.assets
-  assetsfilespec: AudioClip/Music*.ogg
-  assetsexcludespec: "*/MusicDenkiThemeFanfare.ogg"
+- assetsfile: Autonauts_Data/sharedassets0.assets
+  assetsfilespec: Music*
+  assetsexcludespec: MusicDenkiThemeFanfare

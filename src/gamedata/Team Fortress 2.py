@@ -3,16 +3,16 @@ import subprocess
 import pathlib
 
 
-def extract(data):
-    os.makedirs(data["output_game_path"] / "sound" / "music")
+def extract(config, args, gameconfig):
+    os.makedirs(gameconfig.output_game_path / "sound" / "music")
     accumulate_outputs = subprocess.CompletedProcess([], 0)
     archive_list_output = subprocess.run(
         [
-            data["game_folder"] / "bin" / "vpk_linux32",
+            gameconfig.game_folder / "bin" / "vpk_linux32",
             "L",
-            data["game_folder"] / "hl2" / "hl2_sound_misc_dir.vpk",
+            gameconfig.game_folder / "hl2" / "hl2_sound_misc_dir.vpk",
         ],
-        env={"LD_LIBRARY_PATH": (data["game_folder"] / "bin")},
+        env={"LD_LIBRARY_PATH": (gameconfig.game_folder / "bin")},
         capture_output=True,
         text=True,
     )
@@ -27,13 +27,13 @@ def extract(data):
         if file.match("sound/music/*"):
             archive_extract_output = subprocess.run(
                 [
-                    data["game_folder"] / "bin" / "vpk_linux32",
+                    gameconfig.game_folder / "bin" / "vpk_linux32",
                     "x",
-                    data["game_folder"] / "hl2" / "hl2_sound_misc_dir.vpk",
+                    gameconfig.game_folder / "hl2" / "hl2_sound_misc_dir.vpk",
                     file,
                 ],
-                env={"LD_LIBRARY_PATH": (data["game_folder"] / "bin")},
-                cwd=data["output_game_path"],
+                env={"LD_LIBRARY_PATH": (gameconfig.game_folder / "bin")},
+                cwd=gameconfig.output_game_path,
                 capture_output=True,
                 text=True,
             )
@@ -44,7 +44,7 @@ def extract(data):
             )
             accumulate_outputs.args.append(str(file))
             os.rename(
-                data["output_game_path"] / file, data["output_game_path"] / file.name
+                gameconfig.output_game_path / file, gameconfig.output_game_path / file.name
             )
-    os.removedirs(data["output_game_path"] / "sound" / "music")
+    os.removedirs(gameconfig.output_game_path / "sound" / "music")
     return accumulate_outputs

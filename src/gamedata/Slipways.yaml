@@ -3,5 +3,5 @@ game_name: Slipways
 game_folder: Slipways
 extract_steps:
 - assetsfile: Slipways_Data/resources.assets
-  assetsfilespec: AudioClip/Music_*.ogg
+  assetsfilespec: Music_*
   
