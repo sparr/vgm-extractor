@@ -1,0 +1,11 @@
+---
+game_name: One Finger Death Punch
+game_folder: One Finger Death Punch
+extract_steps:
+- xwb_file: Content/Wave Bank.xwb
+  # xsb_file: Content/Sound Bank.xsb
+  # xsb_offset: 1086
+  # FIXME static offset doesn't work here, need proper XSB decoding
+- filterfilespec: "*"
+  # FIXME mutagen is way off on bps and length of these files
+  # so attempting to filter by duration deletes them all

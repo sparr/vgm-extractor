@@ -54,11 +54,16 @@ for game_name in configuration.games:
             steps.ZipfileStep(step).execute(configuration, parsed_args, game_configuration)
 
         # xwb files
-        elif "xwb_file" in step and "xsb_file" in step and shutil.which("unxwb"):
+        elif "xwb_file" in step and shutil.which("unxwb"):
             steps.XwbfileStep(step).execute(configuration, parsed_args, game_configuration)
 
         # Unity assets files
         if "assetsfile" in step:
             steps.AssetsfileStep(step).execute(configuration, parsed_args, game_configuration)
 
+        # filter already extracted or copied files
+        if "filterfilespec" in step:
+            steps.FilterFilespecStep(step).execute(configuration, parsed_args, game_configuration)
+
+    # TODO keep track of games that are found but produce no audio files
     file_util.remove_empty_dir_tree(game_configuration.output_game_path)

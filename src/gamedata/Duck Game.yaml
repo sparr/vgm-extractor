@@ -1,0 +1,6 @@
+---
+game_name: Duck Game
+game_folder: Duck Game
+extract_steps:
+- filespec: Content/Audio/Music/*.ogg
+- filespec: Content/Audio/Music/InGame/*.ogg

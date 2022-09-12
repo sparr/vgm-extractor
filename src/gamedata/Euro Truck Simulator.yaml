@@ -1,0 +1,9 @@
+---
+game_name: Euro Truck Simulator
+game_folder: Euro Truck Simulator
+extract_steps:
+- zipfile: base.scs
+  zipfilespec:
+  - tmp/sound/music/*.ogg
+  zipexcludespec:
+  - tmp/sound/music/truck_dealer.ogg

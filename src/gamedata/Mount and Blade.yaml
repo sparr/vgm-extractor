@@ -1,0 +1,5 @@
+---
+game_name: Mount and Blade
+game_folder: Mount and Blade
+extract_steps:
+- filespec: music/*.ogg # some short stuff, but all musical, let minduration sort it out

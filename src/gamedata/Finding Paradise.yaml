@@ -1,0 +1,11 @@
+---
+game_name: Finding Paradise
+game_folder: Finding Paradise
+extract_steps:
+- zipfile: Audio.dat
+  zipfilespec:
+  - Audio/ME/*.ogg
+  - Audio/BGM/*.ogg
+  zipexcludespec:
+  - Audio/ME/LogIn.ogg
+- filespec: icon.png

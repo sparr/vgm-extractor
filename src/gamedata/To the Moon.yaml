@@ -1,0 +1,26 @@
+---
+game_name: To the Moon
+game_folder: To the Moon
+extract_steps:
+- zipfile: Audio.dat
+  zipfilespec:
+  - Audio/ME/*-*.ogg
+  - Audio/BGM/*.ogg
+  zipexcludespec:
+  - Audio/BGM/Ringtone*
+  - Audio/BGM/Z_Warning*
+- zipfile: Sigmund Holiday Special 1/Audio.dat
+  zipfilespec:
+  - Audio/Bandcamp URL.txt
+  - Audio/ME/*.ogg
+  - Audio/BGM/*.ogg
+  zipexcludespec:
+  - Audio/BGM/Ringtone*
+- zipfile: Sigmund Holiday Special 2/Audio.dat
+  zipfilespec:
+  - Audio/ME/*.ogg
+  - Audio/BGM/*.ogg
+  zipexcludespec:
+  - Audio/BGM/Z_Warning*
+- filespec: icon.png
+# TODO make Sigmund.../ folders

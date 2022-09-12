@@ -1,0 +1,6 @@
+---
+game_name: Super Hexagon
+game_folder: Super Hexagon
+extract_steps:
+- filespec: data/music/*.dat # ogg vorbis
+# TODO rename step

@@ -1,0 +1,6 @@
+---
+game_name: Gunpoint
+game_folder: Gunpoint
+extract_steps:
+- filespec: Music/*.guns # ogg vorbis
+# TODO rename step

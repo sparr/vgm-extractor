@@ -1,0 +1,7 @@
+---
+game_name: Fran Bow
+game_folder: Fran Bow
+extract_steps:
+- filespec: assets/m_*.ogg
+- filespec: assets/mcut_*.ogg
+- filespec: assets/music_*.ogg

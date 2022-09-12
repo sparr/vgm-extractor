@@ -8,6 +8,20 @@ from zipfile import ZipFile
 import file_util
 import unity_extract
 
+def apply_filespecs(filename, filespecs, excludespecs = None):
+    if not isinstance(filespecs, list):
+        filespecs = [filespecs]
+    if not isinstance(excludespecs, list):
+        excludespecs = [excludespecs]
+    for excludespec in excludespecs:
+        if excludespec and fnmatch.fnmatch(filename, excludespec):
+            return False
+    for filespec in filespecs:
+        if filespec and fnmatch.fnmatch(filename, filespec):
+            return True
+    return False
+    
+
 class Step():
     def __init__(self, step):
         self.step = step
@@ -71,33 +85,22 @@ class ZipfileStep(Step):
         with ZipFile(
             Path(gameconfig.game_folder.joinpath(self.step["zipfile"])), "r"
         ) as zipfile:
-            found_files = False
-            zipfilespec = self.step["zipfilespec"]
-            if not zipfilespec:
-                zipfilespec = ["*"]
-            else:
-                if isinstance(zipfilespec, str):
-                    zipfilespec = [zipfilespec]
-            for spec in zipfilespec:
-                for filename in zipfile.namelist():
-                    if fnmatch.fnmatch(filename, spec):
-                        if (
-                            args.overwrite
-                            or not gameconfig.output_game_path.joinpath(filename).exists()
-                        ):
-                            found_files = True
-                            zipfile.extract(filename, path=gameconfig.output_game_path)
-                            file_util.tag(gameconfig.output_game_path / filename, gameconfig.gamename, args.albumsuffix)
-                            (gameconfig.output_game_path / filename).rename(
-                                gameconfig.output_game_path / Path(filename).name
-                            )
-                            if args.verbose > 1:
-                                print("  " + filename)
-                if found_files:
-                    break
+            for filename in zipfile.namelist():
+                if apply_filespecs(filename, self.step["zipfilespec"], self.step["zipexcludespec"]):
+                    if (
+                        args.overwrite
+                        or not gameconfig.output_game_path.joinpath(filename).exists()
+                    ):
+                        zipfile.extract(filename, path=gameconfig.output_game_path)
+                        file_util.tag(gameconfig.output_game_path / filename, gameconfig.gamename, args.albumsuffix)
+                        (gameconfig.output_game_path / filename).rename(
+                            gameconfig.output_game_path / Path(filename).name
+                        )
+                        if args.verbose > 1:
+                            print("  " + filename)
         # TODO: eliminate unwanted levels of folder nesting here
 
-# unxwb from https://aluigi.altervista.org/papers.htm#xbox
+# unxwb from https://github.com/mariodon/unxwb
 # TODO: support --overwrite
 class XwbfileStep(Step):
     def execute(self, config, args, gameconfig):
@@ -107,28 +110,26 @@ class XwbfileStep(Step):
             prompt_key = "n"
         yes = subprocess.Popen(["yes", prompt_key], stdout=subprocess.PIPE)
         # TODO capture output, suppress based on verbosity
-        unxwb = subprocess.run(
-            [
+        command = [
                 "unxwb",
                 "-d",
                 gameconfig.output_game_path,
+            ]
+        if "xsb_file" in self.step:
+            command.extend( [
                 "-b",
                 gameconfig.game_folder.joinpath(self.step["xsb_file"]),
                 str(self.step.get("xsb_offset", 0)),
-                gameconfig.game_folder.joinpath(self.step["xwb_file"]),
-            ],
+            ])
+        command.append(gameconfig.game_folder.joinpath(self.step["xwb_file"]))
+        unxwb = subprocess.run(
+            command,
             stdin=yes.stdout,
         )
         yes.stdout.close()
 
 class AssetsfileStep(Step):
     def execute(self, config, args, gameconfig):
-        assetsfilespec = self.step.get("assetsfilespec", None)
-        assetsexcludespec = self.step.get("assetsexcludespec", None)
-        if not isinstance(assetsfilespec, list):
-            assetsfilespec = [assetsfilespec]
-        if not isinstance(assetsexcludespec, list):
-            assetsexcludespec = [assetsexcludespec]
         # TODO support image assets to find album art
         # TODO support video assets for music videos and audio extraction
         def asset_filter(obj):
@@ -136,17 +137,7 @@ class AssetsfileStep(Step):
                 if obj.m_Length and obj.m_Length < args.minduration:
                     return False
                 if obj.name:
-                    # TODO sync with other multiple filespec behavior 
-                    for excludespec in assetsexcludespec:
-                        if excludespec and fnmatch.fnmatch(obj.name, excludespec):
-                            return False
-                    for filespec in assetsfilespec:
-                        if filespec and fnmatch.fnmatch(obj.name, filespec):
-                            # print("======", obj.name)
-                            # for k in dir(obj):
-                            #     print(k,str(getattr(obj,k))[:100])
-                            return True
-                    return False
+                    return apply_filespecs(obj.name, self.step["assetsfilespec"], self.step["assetsexcludespec"])
                 return True
             return False
         # print(config.game_folder.joinpath(step["assetsfile"]), config.output_game_path)
@@ -160,3 +151,9 @@ class AssetsfileStep(Step):
         if len(path_id_list) == 0:
             raise Exception("Empty unity extract")
         # TODO collect and output filenames for verbose>1
+
+class FilterFilespecStep(Step):
+    def execute(self, config, args, gameconfig):
+        for file in gameconfig.output_game_path.glob("*"):
+            if not apply_filespecs(file, self.step["filterfilespec"], self.step.get("filterexcludespec",None)) or file_util.audio_duration(file) < args.minduration:
+                print(file,file_util.audio_duration(file))
