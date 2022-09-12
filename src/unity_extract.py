@@ -58,7 +58,6 @@ def export_obj(
         fp = f"{fp}_{obj.path_id}"
 
     # TODO convert wav samples to target format ogg/flac/mp3/etc
-    # export
     return export_func(obj, fp, extension)
 
 

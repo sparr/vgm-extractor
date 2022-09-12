@@ -20,13 +20,12 @@ Example:
 
 ### Python
 
-This script requires some python modules described in the Pipfile, which you can install via `pipenv install` or `pip install -r $(pipenv requirements)`
+This script requires some python modules described in the [Pipfile](Pipfile), which you can install via `pipenv install` or `pip install -r $(pipenv requirements)`
 
 ### Third Party Tools
 
 Specific tools must be on the path to extract certain types of archives:
 
-- [AssetRipper](https://github.com/AssetRipper/AssetRipper) for Unity `.assets` files
 - [unxwb](https://github.com/mariodon/unxwb) for XACT Wave Bank `.xwb` files
 
 ## Contributing

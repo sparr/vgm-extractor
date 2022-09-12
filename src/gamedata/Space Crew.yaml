@@ -1,0 +1,6 @@
+---
+game_name: Space Crew
+game_folder: SpaceCrew
+extract_steps:
+- assetsfile: SpaceCrew_Data/sharedassets4.assets
+  assetsfilespec: Music_*

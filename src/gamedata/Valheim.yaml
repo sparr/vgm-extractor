@@ -1,0 +1,29 @@
+---
+game_name: Valheim
+game_folder: Valheim
+extract_steps:
+- assetsfile: valheim_Data/sharedassets1.assets
+  assetsfilespec:
+  - Battle 1 - Eikthyr
+  - Battle 2 - Elder
+  - Black Forest(day)
+  - Boss 3 Bonemass
+  - Boss 4 Mother
+  - Boss 5 Yagluth
+  - Dawn
+  - Dusk
+  - Entering Valheim
+  - ForestCrypt
+  - ForestIsMovingLv1
+  - ForestIsMovingLv2
+  - ForestIsMovingLv3
+  - ForestIsMovingLv4
+  - HomeBase
+  - LocationReveal # <30s, excluded by default minduration
+  - Meadows(day)
+  - MenuMusic
+  - Mountain Cave Sanctum
+  - Mountains
+  - Plains
+  - Sailing4
+  - Swamps

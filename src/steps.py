@@ -129,6 +129,8 @@ class AssetsfileStep(Step):
             assetsfilespec = [assetsfilespec]
         if not isinstance(assetsexcludespec, list):
             assetsexcludespec = [assetsexcludespec]
+        # TODO support image assets to find album art
+        # TODO support video assets for music videos and audio extraction
         def asset_filter(obj):
             if obj.type == ClassIDType.AudioClip:
                 if obj.m_Length and obj.m_Length < args.minduration:
@@ -156,5 +158,5 @@ class AssetsfileStep(Step):
             asset_filter = asset_filter,
         )
         if len(path_id_list) == 0:
-            raise "Empty unity extract"
+            raise Exception("Empty unity extract")
         # TODO collect and output filenames for verbose>1
