@@ -1,5 +1,3 @@
 ---
-game_name: Micro Mages
-game_folder: Micro Mages
 extract_steps:
 - filespec: music/*.ogg

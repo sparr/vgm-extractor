@@ -1,6 +1,4 @@
 ---
-game_name: Ticket to Ride
-game_folder: Ticket to Ride
 extract_steps:
 - filespec:
   - Resources/music/*.ogg

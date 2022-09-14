@@ -1,6 +1,5 @@
 ---
 game_name: WHAT THE GOLF?
-game_folder: WHAT THE GOLF
 extract_steps:
 - assetsfile: WHAT THE GOLF_Data/sharedassets8.assets
   assetsfilespec: Winter Themes X Loop2 4min40

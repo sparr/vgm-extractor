@@ -1,6 +1,4 @@
 ---
-game_name: Slime Rancher
-game_folder: Slime Rancher
 extract_steps:
 - assetsfile: SlimeRancher_Data/sharedassets2.assets
   assetsfilespec: music*

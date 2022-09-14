@@ -1,6 +1,4 @@
 ---
-game_name: RIVE
-game_folder: RIVE
 extract_steps:
 - filespec: audio/Music/*.ogg
 - filespec: app_icon.png

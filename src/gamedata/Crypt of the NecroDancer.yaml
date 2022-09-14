@@ -1,5 +1,3 @@
 ---
-game_name: Crypt of the NecroDancer
-game_folder: Crypt of the NecroDancer
 extract_steps:
 - filespec: data/music/*.ogg

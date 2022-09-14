@@ -1,6 +1,4 @@
 ---
-game_name: NEO Scavenger
-game_folder: NEO Scavenger
 extract_steps:
 - filespec: OST/*.mp3
 - filespec: img/nsLogo.png

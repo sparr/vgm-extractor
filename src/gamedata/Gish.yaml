@@ -1,6 +1,4 @@
 ---
-game_name: Gish
-game_folder: Gish
 extract_steps:
 - filespec: music/*.ogg
 - filespec: data/menu/gishtitle.png

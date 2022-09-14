@@ -15,8 +15,8 @@ YAML files describe how to extract music from the game, using a variety of commo
 
 #### Data
 
-* **game_name** *string* The full name of the game, suitable for metadata tagging
-* **game_folder** *string* The name of the game directory under steamapps/common or Program Files or similar
+* **game_name** *string* The full name of the game, suitable for metadata tagging. Optional, defaults to filename
+* **game_folder** *string* The name of the game directory under steamapps/common or Program Files or similar. Optional, defaults to filename
 * **extract_steps** *[]* Steps to be taken in order to extract music from the game folder
   * **filespec** *string or [string,...]* A glob pattern (like "music/*.mp3") of files to copy, or a list of patterns from which only the first one with matches will be used
   * **strip_glob_path** *string* Disable the default behavior of putting all the files in the same directory, stripping only the directory(s) specified in this option

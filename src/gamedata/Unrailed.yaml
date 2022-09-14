@@ -1,5 +1,3 @@
 ---
-game_name: Unrailed
-game_folder: Unrailed
 extract_steps:
 - filespec: Content/Gameplay.ogg

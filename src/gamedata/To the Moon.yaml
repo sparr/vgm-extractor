@@ -1,6 +1,4 @@
 ---
-game_name: To the Moon
-game_folder: To the Moon
 extract_steps:
 - zipfile: Audio.dat
   zipfilespec:

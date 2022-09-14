@@ -1,6 +1,4 @@
 ---
-game_name: Euro Truck Simulator
-game_folder: Euro Truck Simulator
 extract_steps:
 - zipfile: base.scs
   zipfilespec:

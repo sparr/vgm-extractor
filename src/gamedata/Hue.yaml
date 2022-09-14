@@ -1,6 +1,4 @@
 ---
-game_name: Hue
-game_folder: Hue
 extract_steps:
 - assetsfile: Hue_Data/resources.assets
   assetsfilespec: a_hue music *

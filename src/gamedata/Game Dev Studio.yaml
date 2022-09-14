@@ -1,6 +1,4 @@
 ---
-game_name: Game Dev Studio
-game_folder: Game Dev Studio
 extract_steps:
 - zipfile: game_dev_studio.love
   zipfilespec: music/**/*.ogg

@@ -1,6 +1,4 @@
 ---
-game_name: Wasteland
-game_folder: Wasteland
 extract_steps:
 - filespec: Extras/Soundtrack/Wasteland.wav
 - filespec: music/*.ogg

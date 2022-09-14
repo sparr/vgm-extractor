@@ -137,7 +137,7 @@ class AssetsfileStep(Step):
                 if obj.m_Length and obj.m_Length < args.minduration:
                     return False
                 if obj.name:
-                    return apply_filespecs(obj.name, self.step["assetsfilespec"], self.step["assetsexcludespec"])
+                    return apply_filespecs(obj.name, self.step["assetsfilespec"], self.step.get("assetsexcludespec",None))
                 return True
             return False
         # print(config.game_folder.joinpath(step["assetsfile"]), config.output_game_path)

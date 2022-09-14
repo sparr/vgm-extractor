@@ -1,6 +1,4 @@
 ---
-game_name: Inscryption
-game_folder: Inscryption
 extract_steps:
 - assetsfile: Inscryption_Data/resources.assets
   assetsfilespec:

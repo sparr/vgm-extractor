@@ -1,6 +1,4 @@
 ---
-game_name: Autonauts
-game_folder: Autonauts
 extract_steps:
 - assetsfile: Autonauts_Data/sharedassets0.assets
   assetsfilespec: Music*

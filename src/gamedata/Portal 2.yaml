@@ -1,6 +1,4 @@
 ---
-game_name: Portal 2
-game_folder: Portal 2
 extract_steps:
 - filespec: Soundtrack/Portal 2 Soundtrack [Songs to Test by]/*.mp3
 - filespec: Soundtrack/Portal 2 Soundtrack [Songs to Test by]/AlbumArtwork.png

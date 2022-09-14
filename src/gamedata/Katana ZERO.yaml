@@ -1,5 +1,3 @@
 ---
-game_name: Katana ZERO
-game_folder: Katana ZERO
 extract_steps:
 - filespec: song_*.ogg

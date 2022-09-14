@@ -1,6 +1,4 @@
 ---
-game_name: Cyberpunk 2077
-game_folder: Cyberpunk 2077
 # TODO use WolvenKit.CLI and wwtools to extract audio from archive/pc/content/audio_*.archive
 extract_steps:
 - filespec:

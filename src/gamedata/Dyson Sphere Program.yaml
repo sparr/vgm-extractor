@@ -1,6 +1,4 @@
 ---
-game_name: Dyson Sphere Program
-game_folder: Dyson Sphere Program
 extract_steps:
 - assetsfile: DSPGAME_Data/resources.assets
   assetsfilespec: iris-*

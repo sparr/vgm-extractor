@@ -1,6 +1,4 @@
 ---
-game_name: Shortest Trip to Earth
-game_folder: Shortest Trip to Earth
 extract_steps:
 - filespec: Soundtrack/*.mp3
 - filespec: Soundtrack/AlbumArtwork.png

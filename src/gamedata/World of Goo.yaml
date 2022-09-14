@@ -1,6 +1,4 @@
 ---
-game_name: World of Goo
-game_folder: World of Goo
 extract_steps:
 - filespec: game/res/music/*.ogg
 - filespec: game/gooicon.png

@@ -1,6 +1,4 @@
 ---
-game_name: Koloro
-game_folder: Koloro
 extract_steps:
 - assetsfile: Koloro_Data/resources.assets
   assetsfilespec:

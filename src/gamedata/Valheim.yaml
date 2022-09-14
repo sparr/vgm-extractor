@@ -1,6 +1,4 @@
 ---
-game_name: Valheim
-game_folder: Valheim
 extract_steps:
 - assetsfile: valheim_Data/sharedassets1.assets
   assetsfilespec:

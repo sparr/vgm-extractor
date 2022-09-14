@@ -1,6 +1,4 @@
 ---
-game_name: Tinytopia
-game_folder: Tinytopia
 extract_steps:
 - assetsfile: Tinytopia_Data/resources.assets
   assetsfilespec: Tinytopia_*

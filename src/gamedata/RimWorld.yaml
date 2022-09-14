@@ -1,6 +1,4 @@
 ---
-game_name: RimWorld
-game_folder: RimWorld
 extract_steps:
 - assetsfile: RimWorldLinux_Data/resources.assets # Windows?
   assetsfilespec:

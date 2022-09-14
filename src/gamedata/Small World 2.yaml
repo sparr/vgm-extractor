@@ -1,5 +1,4 @@
 ---
-game_name: Small World 2
 game_folder: SmallWorld2
 extract_steps:
 - filespec: Resources/*Music.ogg

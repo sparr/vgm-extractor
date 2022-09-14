@@ -1,6 +1,4 @@
 ---
-game_name: Interplanetary Enhanced Edition
-game_folder: Interplanetary Enhanced Edition
 extract_steps:
 - assetsfile: Interplanetary_Data/resources.assets
   assetsfilespec: music_*

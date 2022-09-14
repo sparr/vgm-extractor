@@ -1,5 +1,4 @@
 ---
-game_name: Snapshot
 game_folder: snapshot
 extract_steps:
 - filespec: resources/audio/music/*.ogg

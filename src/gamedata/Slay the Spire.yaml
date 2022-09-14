@@ -1,5 +1,4 @@
 ---
-game_name: Slay the Spire
 game_folder: SlayTheSpire
 extract_steps:
 - zipfile: desktop-1.0.jar

@@ -1,6 +1,4 @@
 ---
-game_name: Rogue Legacy
-game_folder: Rogue Legacy
 extract_steps:
 - xwb_file: Content/Audio/MusicWaveBank.xwb
   xsb_file: Content/Audio/MusicSoundBank.xsb

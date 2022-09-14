@@ -1,5 +1,4 @@
 ---
-game_name: Kentucky Route Zero
 game_folder: KentuckyRouteZero
 extract_steps:
 - filespec: Soundtrack/*/*.mp3

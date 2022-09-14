@@ -1,5 +1,4 @@
 ---
-game_name: Atom Zombie Smasher
 game_folder: atomzombiesmasher
 extract_steps:
 - filespec: content/music/*.ogg

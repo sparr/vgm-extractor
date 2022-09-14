@@ -1,5 +1,3 @@
 ---
-game_name: TRAUMA
-game_folder: TRAUMA
 extract_steps:
 - filespec: trauma_data/sound/level*/*.mp3

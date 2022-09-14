@@ -1,5 +1,3 @@
 ---
-game_name: Torchlight
-game_folder: Torchlight
 extract_steps:
 - filespec: music/*.ogg

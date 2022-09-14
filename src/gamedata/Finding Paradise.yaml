@@ -1,6 +1,4 @@
 ---
-game_name: Finding Paradise
-game_folder: Finding Paradise
 extract_steps:
 - zipfile: Audio.dat
   zipfilespec:

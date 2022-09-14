@@ -1,5 +1,3 @@
 ---
-game_name: Kingsway
-game_folder: Kingsway
 extract_steps:
 - filespec: Music/*.ogg

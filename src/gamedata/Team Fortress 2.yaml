@@ -1,6 +1,4 @@
 ---
-game_name: Team Fortress 2
-game_folder: Team Fortress 2
 extract_steps:
 - python: extract
 - tag_filespec: "*.mp3"

@@ -1,6 +1,4 @@
 ---
-game_name: Undertale
-game_folder: Undertale
 extract_steps:
 - filespec: assets/mus_*.ogg # lots of sound effects mixed in. duration filter works, but this might be too many to be ok without a filter
 - filespec: assets/splash.png
