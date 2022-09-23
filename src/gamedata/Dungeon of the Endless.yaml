@@ -1,0 +1,4 @@
+---
+extract_steps:
+  - filespec: "Soundtrack/*.mp3"
+  - filespec: "Soundtrack/*.png"
