@@ -61,9 +61,17 @@ for game_name in configuration.games:
         if "assetsfile" in step:
             steps.AssetsfileStep(step).execute(configuration, parsed_args, game_configuration)
 
+        # QuickBMS script
+        if "quickbmsscript" in step and "quickbmsarchive" in step and shutil.which("quickbms"):
+            steps.QuickBmsStep(step).execute(configuration, parsed_args, game_configuration)
+
         # filter already extracted or copied files
         if "filterfilespec" in step:
             steps.FilterFilespecStep(step).execute(configuration, parsed_args, game_configuration)
+
+        # flatten directory structore of already extracted or copied files
+        if "flattenfilespec" in step:
+            steps.FlattenFilespecStep(step).execute(configuration, parsed_args, game_configuration)
 
     # TODO keep track of games that are found but produce no audio files
     file_util.remove_empty_dir_tree(game_configuration.output_game_path)

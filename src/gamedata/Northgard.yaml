@@ -1,0 +1,10 @@
+---
+extract_steps:
+  - quickbmsscript: "Evoland 2.bms"
+    quickbmsarchive: "res.pak"
+    quickbmsfilespec:
+    - "music/*.ogg"
+    - "ui/title/titleLogo.png"
+  - filterfilespec: "music/*.ogg"
+  - flattenfilespec: "**/*"
+

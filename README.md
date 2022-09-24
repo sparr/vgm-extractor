@@ -27,6 +27,7 @@ This script requires some python modules described in the [Pipfile](Pipfile), wh
 Specific tools must be on the path to extract certain types of archives:
 
 - [unxwb](https://github.com/mariodon/unxwb) for XACT Wave Bank `.xwb` files
+- [quickbms](http://aluigi.altervista.org/quickbms.htm) for a variety of formats
 
 ## Contributing
 

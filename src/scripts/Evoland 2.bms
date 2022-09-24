@@ -1,0 +1,40 @@
+#https://zenhax.com/viewtopic.php?f=9&t=1315#p7081
+# valid for Evoland 2, Darksburg, Northgard, possibly other Shiro Games titles
+
+#script for quickbms
+# By Allen
+#2015-9-1 Evoland 2 .pak
+
+idstring "PAK\0"
+get DataOffset long
+get fileSize long
+get dummy short
+get numFolder long
+for i = 0 < numFolder
+    set folderName string ""
+    CallFunction unpack 0 folderName
+next i
+
+StartFunction unpack folderName
+    get namelen byte
+    getdstring name namelen
+    get type byte
+    if type == 0
+        get offset long
+        get size long
+        get dummy long
+        math offset += Dataoffset
+        set fname string FolderName
+        string fname += /
+        string fname += name
+        log fname offset size
+    elif type == 1
+        string folderName += /
+        string folderName += name
+        get numEntry long
+        for j = 0 < numEntry
+            set folderName2 string folderName
+            CallFunction unpack 0 folderName2
+        next j
+    endif
+EndFunction

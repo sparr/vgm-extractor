@@ -1,4 +1,5 @@
 import fnmatch
+import os
 import subprocess
 
 from pathlib import Path
@@ -20,7 +21,7 @@ def apply_filespecs(filename, filespecs, excludespecs = None):
         if filespec and fnmatch.fnmatch(filename, filespec):
             return True
     return False
-    
+
 
 class Step():
     def __init__(self, step):
@@ -152,8 +153,54 @@ class AssetsfileStep(Step):
             raise Exception("Empty unity extract")
         # TODO collect and output filenames for verbose>1
 
+class QuickBmsStep(Step):
+    def execute(self, config, args, gameconfig):
+        if args.overwrite:
+            overwrite = "-o"
+        else:
+            overwrite = "-k"
+        # TODO capture output, suppress based on verbosity
+        command = [
+                "quickbms",
+                overwrite,
+            ]
+        if "quickbmsfilespec" in self.step:
+            filespecs = self.step["quickbmsfilespec"]
+            if not isinstance(filespecs, list):
+                filespesc = [filespecs]
+            command.extend( [
+                "-f",
+                ",".join(filespecs)
+            ])
+        script_dir = Path(__file__).resolve().parent
+        command.append(script_dir / "scripts" / self.step["quickbmsscript"])
+        command.append(gameconfig.game_folder.joinpath(self.step["quickbmsarchive"]))
+        command.append(gameconfig.output_game_path)
+        # TODO consolidate use of subprocess (here, unxwb, etc) for consistent handling of output
+        print(command)
+        quickbms = subprocess.run(command)
+
 class FilterFilespecStep(Step):
     def execute(self, config, args, gameconfig):
-        for file in gameconfig.output_game_path.glob("*"):
-            if not apply_filespecs(file, self.step["filterfilespec"], self.step.get("filterexcludespec",None)) or file_util.audio_duration(file) < args.minduration:
-                print(file,file_util.audio_duration(file))
+        for file in gameconfig.output_game_path.glob(self.step["filterfilespec"]):
+            if not apply_filespecs(file, self.step.get("filterincludespec","*"), self.step.get("filterexcludespec",None)) or file_util.audio_duration(file) < args.minduration:
+                os.unlink(file)
+
+class FlattenFilespecStep(Step):
+    def execute(self, config, args, gameconfig):
+        dirs = set()
+        for file in gameconfig.output_game_path.glob(self.step["flattenfilespec"]):
+            if file.is_file():
+                # TODO allow partial flattening
+                print(file, gameconfig.output_game_path / file.name)
+                os.rename(file, gameconfig.output_game_path / file.name)
+            elif file.is_dir():
+                dirs.add(file)
+            else:
+                # TODO handle sockets, block devices, etc?
+                pass
+        for dir in dirs:
+            try:
+                os.removedirs(dir)
+            except FileNotFoundError:
+                pass
