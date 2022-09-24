@@ -2,3 +2,4 @@
 extract_steps:
   - filespec: "Soundtrack/*.mp3"
   - filespec: "Soundtrack/*.png"
+  - filespec: "Soundtrack/*.txt" # text file describes where to find the flac and ogg versions online
