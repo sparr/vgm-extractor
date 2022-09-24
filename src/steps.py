@@ -4,10 +4,10 @@ import subprocess
 
 from pathlib import Path
 from UnityPy.enums.ClassIDType import ClassIDType
+from UnityPy.tools.extractor import extract_assets
 from zipfile import ZipFile
 
 import file_util
-import unity_extract
 
 def apply_filespecs(filename, filespecs, excludespecs = None):
     if not isinstance(filespecs, list):
@@ -142,7 +142,7 @@ class AssetsfileStep(Step):
                 return True
             return False
         # print(config.game_folder.joinpath(step["assetsfile"]), config.output_game_path)
-        path_id_list = unity_extract.extract_assets(
+        path_id_list = extract_assets(
             str(gameconfig.game_folder.joinpath(self.step["assetsfile"])),
             gameconfig.output_game_path,
             use_container = False,
