@@ -3,8 +3,6 @@ import os
 import subprocess
 
 from pathlib import Path
-from UnityPy.enums.ClassIDType import ClassIDType
-from UnityPy.tools.extractor import extract_assets
 from zipfile import ZipFile
 
 import file_util
@@ -131,6 +129,11 @@ class XwbfileStep(Step):
 
 class AssetsfileStep(Step):
     def execute(self, config, args, gameconfig):
+        try:
+            from UnityPy.enums.ClassIDType import ClassIDType
+            from UnityPy.tools.extractor import extract_assets
+        except:
+            return
         # TODO support image assets to find album art
         # TODO support video assets for music videos and audio extraction
         def asset_filter(obj):
