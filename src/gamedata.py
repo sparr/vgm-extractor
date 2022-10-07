@@ -15,5 +15,5 @@ def load():
     # TODO replace deprecated find_module and load_module
     for finder, name, ispkg in pkgutil.iter_modules(["gamedata"]):
         game_data[name]["python"] = finder.find_module(name).load_module()
-    
+
     return game_data
