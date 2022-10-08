@@ -1,0 +1,4 @@
+---
+extract_steps:
+- filespec: "data/mus/*"
+# data/hk/wc_2da_shared.hak contains a table with nicer "DisplayName" for some music files

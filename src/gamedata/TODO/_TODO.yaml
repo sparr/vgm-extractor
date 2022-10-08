@@ -43,6 +43,17 @@ This War of Mine:
 Tooth and Tail:
 # RIFF bank files, maybe extract with tool like quickbms?
 
+
+
+# Infinity Engine games
+# try to use https://github.com/NearInfinityBrowser/NearInfinity
+Baldurs Gate 2 Enhanced Edition:
+# music/*/*.acm are in an unrecognized format
+Icewind Dale Enhanced Edition:
+# music/*/*.acm are in an unrecognized format
+
+
+
 # Unity games where *_Data/StreamingAssets/ or *_Data/StreamingAssets/Audio/GeneratedSoundBanks/[Windows or Linux]/ contains WEM and BNK or Bank files
 Carto:
 Crying Suns:

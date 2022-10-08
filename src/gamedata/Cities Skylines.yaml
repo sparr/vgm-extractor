@@ -2,7 +2,11 @@
 game_folder: Cities_Skylines
 extract_steps:
 - filespec: Files/Radio/Music/Cities/*.ogg
+  strip_glob_path: Files/Radio/Music
 - filespec: Files/Radio/Music/Classical/*.ogg
+  strip_glob_path: Files/Radio/Music
 - filespec: Files/Radio/Music/GoldFM/*.ogg
+  strip_glob_path: Files/Radio/Music
 - filespec: Files/Radio/Music/Mars/*.ogg
+  strip_glob_path: Files/Radio/Music
 - filespec: LauncherAssets/game-logo.png

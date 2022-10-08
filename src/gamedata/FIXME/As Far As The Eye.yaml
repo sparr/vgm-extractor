@@ -1,0 +1,8 @@
+---
+extract_steps:
+- assetsfile: 110_Data/data.unity3d
+  assetsfilespec:
+  - PERU_Music_Drone*
+  - PERU_Music_Menu_Theme_Master
+  - PERU_Music_Theme*
+  # FIXME UnityPy can't currently handle the AudioClip assets in this file, throws a FMOD FORMAT error when trying to extract samples

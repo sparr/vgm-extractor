@@ -1,0 +1,8 @@
+---
+game_folder: Zero-K
+extract_steps:
+  - quickbmsscript: "Zero K.bms"
+    quickbmsarchive: "packages/14f4bcd84a319be664c88406cdcf225b.sdpzk"
+    quickbmsfilespec: sounds/lobbymusic/*.ogg
+  - flattenfilespec: "**/*"
+

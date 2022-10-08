@@ -48,23 +48,26 @@ class FilespecStep(Step):
             # filespec list might be [a/*.ogg,b/*.mp3] and we want the first that we can get
             # filespec list might be [a/*.ogg,b/*.mp3] and we want either or both depending on args.format
             # TODO support multiple args.format
-            self.step["filespec"] = self.step["filespec"][0]
-        for filepath in gameconfig.game_folder.glob(self.step["filespec"]):
-            copydst = gameconfig.output_game_path
-            strip_glob_path = self.step.get("strip_glob_path", "")
-            if strip_glob_path != "":
-                strip_glob_full_path = gameconfig.game_folder.joinpath(strip_glob_path)
-                copydst = gameconfig.output_game_path.joinpath(
-                    filepath.parent.relative_to(strip_glob_full_path)
-                )
-                copydst.mkdir(parents=True, exist_ok=True)
-            try:
-                if file_util.audio_duration(filepath) >= args.minduration:
-                    if args.verbose > 1:
-                        print("  " + str(filepath.relative_to(gameconfig.game_folder)))
-                    file_util.copy_and_tag(filepath, copydst, gameconfig.gamename, args.overwrite)
-            except FileExistsError:
-                pass
+            filespecs = self.step["filespec"]
+        else:
+            filespecs = [self.step["filespec"]]
+        for filespec in filespecs:
+            for filepath in gameconfig.game_folder.glob(filespec):
+                copydst = gameconfig.output_game_path
+                strip_glob_path = self.step.get("strip_glob_path", "")
+                if strip_glob_path != "":
+                    strip_glob_full_path = gameconfig.game_folder.joinpath(strip_glob_path)
+                    copydst = gameconfig.output_game_path.joinpath(
+                        filepath.parent.relative_to(strip_glob_full_path)
+                    )
+                    copydst.mkdir(parents=True, exist_ok=True)
+                try:
+                    if file_util.audio_duration(filepath) >= args.minduration:
+                        if args.verbose > 1:
+                            print("  " + str(filepath.relative_to(gameconfig.game_folder)))
+                        file_util.copy_and_tag(filepath, copydst, gameconfig.gamename, args.overwrite)
+                except FileExistsError:
+                    pass
 
 class PythonStep(Step):
     def execute(self, config, args, gameconfig):
@@ -145,15 +148,19 @@ class AssetsfileStep(Step):
                 return True
             return False
         # print(config.game_folder.joinpath(step["assetsfile"]), config.output_game_path)
-        path_id_list = extract_assets(
-            str(gameconfig.game_folder.joinpath(self.step["assetsfile"])),
-            gameconfig.output_game_path,
-            use_container = False,
-            append_path_id = False,
-            asset_filter = asset_filter,
-        )
-        if len(path_id_list) == 0:
-            raise Exception("Empty unity extract")
+        assetsfiles = self.step["assetsfile"]
+        if not isinstance(assetsfiles, list):
+            assetsfiles = [assetsfiles]
+        for assetsfile in assetsfiles:
+            path_id_list = extract_assets(
+                str(gameconfig.game_folder.joinpath(assetsfile)),
+                gameconfig.output_game_path,
+                use_container = False,
+                append_path_id = False,
+                asset_filter = asset_filter,
+            )
+            if len(path_id_list) == 0:
+                raise Exception("Empty unity extract")
         # TODO collect and output filenames for verbose>1
 
 class QuickBmsStep(Step):
@@ -170,17 +177,16 @@ class QuickBmsStep(Step):
         if "quickbmsfilespec" in self.step:
             filespecs = self.step["quickbmsfilespec"]
             if not isinstance(filespecs, list):
-                filespesc = [filespecs]
+                filespecs = [filespecs]
             command.extend( [
                 "-f",
-                ",".join(filespecs)
+                ";".join(filespecs)
             ])
         script_dir = Path(__file__).resolve().parent
         command.append(script_dir / "scripts" / self.step["quickbmsscript"])
         command.append(gameconfig.game_folder.joinpath(self.step["quickbmsarchive"]))
         command.append(gameconfig.output_game_path)
         # TODO consolidate use of subprocess (here, unxwb, etc) for consistent handling of output
-        print(command)
         quickbms = subprocess.run(command)
 
 class FilterFilespecStep(Step):

@@ -1,0 +1,4 @@
+---
+extract_steps:
+- assetsfile: Zombotron_Data/resources.assets
+  assetsfilespec: zombotron*

@@ -1,0 +1,8 @@
+---
+game_folder: Project P
+extract_steps:
+- filespec: music/*/*.acm
+# TODO parse "music/songlist.txt" which maps *.MUS files to names
+# TODO parse *.MUS files to identify */*.acm files the names apply to
+
+# TODO or [optionally?] try https://github.com/NearInfinityBrowser/NearInfinity

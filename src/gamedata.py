@@ -13,7 +13,7 @@ def load():
             game_data[name].setdefault("game_folder", name)
 
     # TODO replace deprecated find_module and load_module
-    for finder, name, ispkg in pkgutil.iter_modules(["gamedata"]):
+    for finder, name, ispkg in pkgutil.iter_modules([str(script_dir / "gamedata")]):
         game_data[name]["python"] = finder.find_module(name).load_module()
 
     return game_data

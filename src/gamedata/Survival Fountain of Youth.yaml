@@ -1,0 +1,13 @@
+---
+game_folder: [Survival Fountain of Youth, Survival Fountain of Youth Demo]
+extract_steps:
+- assetsfile:
+  - Survival Fountain of Youth_Data/sharedassets3.assets
+  - Survival Fountain of Youth_Data/sharedassets5.assets
+  - Survival Fountain of Youth_Data/sharedassets25.assets
+  - Survival Fountain of Youth_Data/sharedassets26.assets
+  - Survival Fountain of Youth_Data/sharedassets27.assets
+  - Survival Fountain of Youth_Data/sharedassets29.assets
+  - Survival Fountain of Youth_Data/sharedassets32.assets
+  - Survival Fountain of Youth_Data/sharedassets33.assets
+  assetsfilespec: music_*

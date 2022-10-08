@@ -1,0 +1,59 @@
+# quickbms script for the packages and pool files in the game Zero-K
+# by Clarence "Sparr" Risher <sparr0@gmail.com>
+
+# packages/*.sdpzk are index files to be read by this script
+# pool/*/*.gz are the target files, named after their hashes, with their real names found in the index files
+
+# Thanks for spiritovod from the ZenHax forum for help with unzipping the index file and the hash filename string manipulation
+
+# FIXME filenames starting with dot have the dot stripped
+
+endian big
+comtype gzip
+
+# Size of the zipped package file
+get PACKAGESZ asize 0
+
+# Unzip the package file to MEMORY_FILE
+clog MEMORY_FILE 0 PACKAGESZ PACKAGESZ
+
+# Size of the unzipped package file
+get INDEXSZ asize MEMORY_FILE
+
+do
+    # length of the filename for the target file
+    get NAMESZ byte MEMORY_FILE
+    # filename for the target file
+    getdstring NAME NAMESZ MEMORY_FILE
+
+    # first byte of hash, used as a directory below
+    get POOLDIR byte MEMORY_FILE
+    # 15 remaining bytes of hash, used as filename below
+    getdstring POOLHASH 15 MEMORY_FILE
+
+    # 4 mystery bytes, samples: 465F7A73 2AFBD45C 43614B0F
+    get UNK1 long MEMORY_FILE
+
+    # size of the unzipped target file
+    get FILESZ long MEMORY_FILE
+
+    # convert POOLHASH from a 120-bit number to a 30-character hex string
+    string POOLHASH 0b POOLHASH
+    # convert hex string letters to lowercase
+    string POOLHASH l POOLHASH
+    # construct the path, e.g. "../pool/ff/fffffffffffffffffffffffffffff.gz"
+    string POOLFILE p "../pool/%02x/%s.gz" POOLDIR POOLHASH
+
+    # open the zipped target file
+    open FDSE POOLFILE 1
+    # seek to beginning of file instead of remembering offset in previous file #1
+    goto 0 1
+
+    # zipped size of the target file
+    get ZSIZE asize 1
+    # output the whole target file with its real name
+    clog NAME 0 ZSIZE FILESZ 1
+
+    # track position in the file for the following loop condition
+    savepos OFFSET MEMORY_FILE
+while OFFSET < INDEXSZ # loop to the end of the file
