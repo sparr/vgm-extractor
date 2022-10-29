@@ -1,0 +1,4 @@
+---
+extract_steps:
+- assetsfile: Stacklands_Data/sharedassets1.assets
+  assetsfilespec: [music_v11, eiland liedje]
