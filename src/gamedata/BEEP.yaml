@@ -1,0 +1,7 @@
+---
+extract_steps:
+- filespec: Art/Audio/Music/*.ogg
+- filespec: Soundtrack/*.mp3 # from OST steam depot
+- filespec: Soundtrack/*.jpg # from OST steam depot
+- filespec: Soundtrack/*.png # from OST steam depot
+#TODO two directories?
