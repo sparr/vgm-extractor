@@ -1,5 +1,9 @@
 ---
 
+Bastion:
+Content/Audio/Streaming/*.ogg # numerical names, find an index?
+Content/Audio/*.xwb # various sizes, probably some music
+
 DOTA 2:
 # Valve vpk files not compatible with TF2/bin/vpk_linux32
 # Some work in GCFscape http://nemesis.thewavelength.net/index.php?p=25 but can't find music
