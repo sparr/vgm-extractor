@@ -48,7 +48,6 @@ Tooth and Tail:
 # RIFF bank files, maybe extract with tool like quickbms?
 
 
-
 # Infinity Engine games
 # try to use https://github.com/NearInfinityBrowser/NearInfinity
 Baldurs Gate 2 Enhanced Edition:
@@ -57,18 +56,22 @@ Icewind Dale Enhanced Edition:
 # music/*/*.acm are in an unrecognized format
 
 
-
 # Unity games where *_Data/StreamingAssets/ or *_Data/StreamingAssets/Audio/GeneratedSoundBanks/[Windows or Linux]/ contains WEM and BNK or Bank files
 Carto:
 Crying Suns:
 The Escapists 2:
 Gladiabots:
 INSIDE:
+Midnight Protocol:
 My Time at Sandrock:
+Project Winter:
 Risk of Rain 2:
 Subnautica:
+Surviving the Aftermath:
 The Long Dark:
+The Survivalists:
 UnderMine:
+
 
 # Unity games need a .asset/.assets/.resS unpacker:
 7 Days To Die:
