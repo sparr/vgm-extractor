@@ -213,3 +213,20 @@ class FlattenFilespecStep(Step):
                 os.removedirs(dir)
             except FileNotFoundError:
                 pass
+class TagFilespecStep(Step):
+    def execute(self, config, args, gameconfig):
+        for filepath in gameconfig.output_game_path.glob(self.step["tag_filespec"]):
+            file_util.tag(filepath, gameconfig.gamename, args.albumsuffix)
+
+
+StepFuncs = {
+    "filespec": FilespecStep,
+    "python": PythonStep,
+    "tag_filespec": TagFilespecStep,
+    "zipfile": ZipfileStep,
+    "xwb_file": XwbfileStep,
+    "assetsfile": AssetsfileStep,
+    "quickbmsscript": QuickBmsStep,
+    "filterfilespec": FilterFilespecStep,
+    "flattenfilespec": FlattenFilespecStep,
+}

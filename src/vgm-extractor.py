@@ -34,44 +34,9 @@ for game_name in configuration.games:
         print(game_name)
     for step in game_data[game_name]["extract_steps"]:
         # The type of extraction step is identified by one or more unique keys
-
-        # filespec indicates we are going to copy some files and folders
-        if "filespec" in step:
-            steps.FilespecStep(step).execute(configuration, parsed_args, game_configuration)
-
-        # python contains a python script to run to extract music somehow
-        elif "python" in step:
-            steps.PythonStep(step).execute(configuration, parsed_args, game_configuration)
-
-        # tag_filespec describes the output files to be tagged
-        elif "tag_filespec" in step:
-            # tag files from the script
-            for filepath in game_configuration.output_game_path.glob(step["tag_filespec"]):
-                file_util.tag(filepath, game_name, parsed_args.albumsuffix)
-
-        # zip files
-        elif "zipfile" in step:
-            steps.ZipfileStep(step).execute(configuration, parsed_args, game_configuration)
-
-        # xwb files
-        elif "xwb_file" in step and shutil.which("unxwb"):
-            steps.XwbfileStep(step).execute(configuration, parsed_args, game_configuration)
-
-        # Unity assets files
-        if "assetsfile" in step:
-            steps.AssetsfileStep(step).execute(configuration, parsed_args, game_configuration)
-
-        # QuickBMS script
-        if "quickbmsscript" in step and "quickbmsarchive" in step and shutil.which("quickbms"):
-            steps.QuickBmsStep(step).execute(configuration, parsed_args, game_configuration)
-
-        # filter already extracted or copied files
-        if "filterfilespec" in step:
-            steps.FilterFilespecStep(step).execute(configuration, parsed_args, game_configuration)
-
-        # flatten directory structore of already extracted or copied files
-        if "flattenfilespec" in step:
-            steps.FlattenFilespecStep(step).execute(configuration, parsed_args, game_configuration)
+        for k,func in steps.StepFuncs.items():
+            if k in step:
+                func(step).execute(configuration, parsed_args, game_configuration)
 
     # TODO keep track of games that are found but produce no audio files
     file_util.remove_empty_dir_tree(game_configuration.output_game_path)
