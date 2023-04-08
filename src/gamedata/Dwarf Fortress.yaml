@@ -1,0 +1,7 @@
+---
+extract_steps:
+- filespec: data/sound/cards/*.ogg
+  strip_glob_path: data/sound
+- filespec: data/sound/tracks/*/*_Full.ogg
+  strip_glob_path: data/sound/tracks
+- filespec: data/sound/tracks/dwarf_fortress/Dwarf_Fortress.ogg

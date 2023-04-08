@@ -1,0 +1,7 @@
+---
+game_name: Hero's Hour
+game_folder: Hero's Hour
+extract_steps:
+- filespec: mus_*.ogg
+- icoextract: Hero's Hour.exe
+
