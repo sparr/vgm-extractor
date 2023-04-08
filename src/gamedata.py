@@ -11,6 +11,9 @@ def load():
             game_data[name] = yaml.safe_load(data_file.read())
             game_data[name].setdefault("game_name", name)
             game_data[name].setdefault("game_folder", name)
+        if name != game_data[name]["game_name"]:
+            game_data[game_data[name]["game_name"]] = game_data[name]
+            del game_data[name]
 
     # TODO replace deprecated find_module and load_module
     for finder, name, ispkg in pkgutil.iter_modules([str(script_dir / "gamedata")]):
