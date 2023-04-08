@@ -213,6 +213,21 @@ class FlattenFilespecStep(Step):
                 os.removedirs(dir)
             except FileNotFoundError:
                 pass
+
+class IcoextractStep(Step):
+    def execute(self, config, args, gameconfig):
+        print("foo")
+        index = 0
+        if isinstance(self.step["icoextract"], str):
+            exe_file = self.step["icoextract"]
+        elif isinstance(self.step["icoextract"], dict):
+            exe_file = self.step["icoextract"]["filename"]
+            index = self.step["icoextract"]["index"]
+        else:
+            raise ValueError
+        command = [ "icoextract", "-n", str(index), gameconfig.game_folder.joinpath(exe_file), gameconfig.output_game_path.joinpath(exe_file).with_suffix(".ico") ]
+        subprocess.run(command)
+
 class TagFilespecStep(Step):
     def execute(self, config, args, gameconfig):
         for filepath in gameconfig.output_game_path.glob(self.step["tag_filespec"]):
@@ -229,4 +244,5 @@ StepFuncs = {
     "quickbmsscript": QuickBmsStep,
     "filterfilespec": FilterFilespecStep,
     "flattenfilespec": FlattenFilespecStep,
+    "icoextract": IcoextractStep,
 }
