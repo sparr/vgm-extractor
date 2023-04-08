@@ -64,7 +64,7 @@ class FilespecStep(Step):
                 try:
                     if file_util.audio_duration(filepath) >= args.minduration:
                         if args.verbose > 1:
-                            print("  " + str(filepath.relative_to(gameconfig.game_folder)))
+                            print("  " + str(filepath.name))
                         file_util.copy_and_tag(filepath, copydst, gameconfig.gamename, args.overwrite)
                 except FileExistsError:
                     pass
@@ -124,7 +124,7 @@ class XwbfileStep(Step):
                 str(self.step.get("xsb_offset", 0)),
             ])
         command.append(gameconfig.game_folder.joinpath(self.step["xwb_file"]))
-        unxwb = subprocess.run(
+        subprocess.run(
             command,
             stdin=yes.stdout,
         )
