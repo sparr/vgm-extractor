@@ -176,6 +176,15 @@ class AssetsfileStep(Step):
 
 class QuickBmsStep(Step):
     def execute(self, config, args, gameconfig):
+        verbose = None
+        if args.verbose == 0:
+            verbose = "-Q"
+        elif args.verbose == 1:
+            verbose = "-q"
+        elif args.verbose == 3:
+            verbose = "-V"
+        elif args.verbose == 4:
+            verbose = "-v"
         if args.overwrite:
             overwrite = "-o"
         else:
@@ -185,6 +194,8 @@ class QuickBmsStep(Step):
                 "quickbms",
                 overwrite,
             ]
+        if verbose:
+            command.append(verbose)
         if "quickbmsfilespec" in self.step:
             filespecs = filespecify(self.step["quickbmsfilespec"])
             command.extend( [
@@ -196,7 +207,7 @@ class QuickBmsStep(Step):
         command.append(gameconfig.game_folder.joinpath(self.step["quickbmsarchive"]))
         command.append(gameconfig.output_game_path)
         # TODO consolidate use of subprocess (here, unxwb, etc) for consistent handling of output
-        quickbms = subprocess.run(command)
+        subprocess.run(command, capture_output = args.verbose == 0)
 
 class FilterFilespecStep(Step):
     def execute(self, config, args, gameconfig):
