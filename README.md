@@ -29,6 +29,7 @@ Specific tools must be on the path to extract certain types of archives:
 - [unxwb](https://github.com/mariodon/unxwb) for XACT Wave Bank `.xwb` files
 - [quickbms](http://aluigi.altervista.org/quickbms.htm) for a variety of formats
 - [icoextract](https://github.com/jlu5/icoextract) to extract icons from exe files
+- [ffmpeg](http://www.ffmpeg.org/) or [libav](http://libav.org/) for converting wav files to other audio formats
 
 ## Contributing
 

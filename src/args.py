@@ -54,6 +54,11 @@ def parse():
         default=30,
     )
 
+    arg_parser.add_argument(
+        "--convertwav",
+        help="convert wav files to alternate format [mp3, ogg, flac]"
+    )
+
     args = arg_parser.parse_args()
     args.parser = arg_parser
     return args

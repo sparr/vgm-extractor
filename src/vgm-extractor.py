@@ -13,6 +13,8 @@ import gamedata
 import game_config
 import steps
 
+from pydub import AudioSegment
+
 parsed_args = args.parse()
 
 game_data = gamedata.load()
@@ -37,6 +39,11 @@ for game_name in configuration.games:
         for k,func in steps.StepFuncs.items():
             if k in step:
                 func(step).execute(configuration, parsed_args, game_configuration)
+    if parsed_args.convertwav:
+        for path in game_configuration.output_game_path.glob("**/*.wav"):
+            audio = AudioSegment.from_wav(path)
+            audio.export(path.with_suffix("." + parsed_args.convertwav), format=parsed_args.convertwav)
+            path.unlink()
 
     # TODO keep track of games that are found but produce no audio files
     file_util.remove_empty_dir_tree(game_configuration.output_game_path)
