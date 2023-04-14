@@ -1,0 +1,7 @@
+---
+extract_steps:
+- assetsfile: Cardpocalypse_Data/StreamingAssets/AssetBundles/cardpocalypse/music
+  assetsexcludespec:
+  - "*cutscene*"
+  - "*ambience*"
+  - "jess_vs_bruce*"

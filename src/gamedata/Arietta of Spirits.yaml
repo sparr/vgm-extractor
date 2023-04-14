@@ -1,0 +1,5 @@
+---
+extract_steps:
+- quickbmsscript: audiogroup.bms
+  quickbmsarchive: audiogroup1.dat
+- icoextract: Arietta of Spirits.exe

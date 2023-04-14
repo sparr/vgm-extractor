@@ -1,0 +1,4 @@
+---
+extract_steps:
+  - filespec: Data/Music/*.ogg
+  - icoextract: IronFisticle.exe

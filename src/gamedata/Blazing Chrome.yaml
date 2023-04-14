@@ -1,0 +1,6 @@
+---
+extract_steps:
+- quickbmsscript: audiogroup.bms
+  quickbmsarchive: data.win
+  quickbmsfilespec: "*.ogg"
+- icoextract: Blazing Chrome.exe

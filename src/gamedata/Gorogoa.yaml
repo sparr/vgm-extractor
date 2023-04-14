@@ -1,0 +1,6 @@
+---
+extract_steps:
+- assetsfile: Gorogoa_Data/data.unity3d
+  assetsfilespec:
+  - Mus_*
+  - credits_select # image

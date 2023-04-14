@@ -1,0 +1,8 @@
+---
+extract_steps:
+- assetsfile: TheSerpentRogue_Data/resources.assets
+  assetsfilespec:
+  - "*Theme*"
+  - "Battle*"
+  - "IntroTrack"
+- icoextract: TheSerpentRogue.exe

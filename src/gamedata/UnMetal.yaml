@@ -1,0 +1,4 @@
+---
+extract_steps:
+  - filespec: "sound/music_*.ogg"
+  - filespec: "icon.ico"

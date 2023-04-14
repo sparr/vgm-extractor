@@ -1,0 +1,6 @@
+---
+game_name: "Morbid: The Seven Acolytes"
+game_folder: Morbid
+extract_steps:
+  - filespec: snd_music_*.ogg
+  - icoextract: Morbid - The Seven Acolytes.exe
