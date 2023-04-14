@@ -208,6 +208,8 @@ class QuickBmsStep(Step):
         command.append(gameconfig.output_game_path)
         # TODO consolidate use of subprocess (here, unxwb, etc) for consistent handling of output
         subprocess.run(command, capture_output = args.verbose == 0)
+        # TODO apply args.minduration more precisely than this FilterFilespecStep which could delete previous steps' files
+        FilterFilespecStep({"filterfilespec" : filespecs}).execute(config, args, gameconfig)
 
 class FilterFilespecStep(Step):
     def execute(self, config, args, gameconfig):
