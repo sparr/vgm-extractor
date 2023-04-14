@@ -155,6 +155,10 @@ class AssetsfileStep(Step):
                 if obj.name:
                     return apply_filespecs(obj.name, filespec, excludespec)
                 return True
+            if obj.type == ClassIDType.Texture2D:
+                if obj.name:
+                    return apply_filespecs(obj.name, filespec, excludespec)
+                return True
             return False
         assetsfiles = self.step["assetsfile"]
         assetsfiles = listify(assetsfiles)
