@@ -26,14 +26,14 @@ Limbo:
 N++:
 # Soundtrack.FSB file that doesn't work in http://aezay.dk/aezay/fsbextractor/
 
+Omno:
+# Omno/Content/audio/music/**/*.uasset *.uexp seem like seven audio tracks, but UEViewer can't handle the uasset files
+
 Rust:
 # ???
 
 Rusty Lake Roots:
 # SWF with embedded MP3(?)
-
-Silicon Zeroes:
-# .bank files?
 
 Skyrim:
 # need a tool or script to extract BSA files version 105
@@ -44,8 +44,12 @@ This War of Mine:
 # $ gunzip -S dat sounds.dat
 # gzip: sounds.dat: invalid compressed data--format violated
 
+
+# .bank files, probably from FMOD
+Scourgebringer:
+Silicon Zeroes:
+Super Magbot:
 Tooth and Tail:
-# RIFF bank files, maybe extract with tool like quickbms?
 
 
 # Infinity Engine games
@@ -57,6 +61,7 @@ Icewind Dale Enhanced Edition:
 
 
 # Unity games where *_Data/StreamingAssets/ or *_Data/StreamingAssets/Audio/GeneratedSoundBanks/[Windows or Linux]/ contains WEM and BNK or Bank files
+Aspire Inas Tale:
 Carto:
 Crying Suns:
 The Escapists 2:
@@ -70,6 +75,7 @@ Subnautica:
 Surviving the Aftermath:
 The Long Dark:
 The Survivalists:
+TOEM:
 UnderMine:
 
 
