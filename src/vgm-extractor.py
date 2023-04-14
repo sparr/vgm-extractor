@@ -4,8 +4,6 @@ import fnmatch
 from importlib.resources import path
 import shutil
 
-from pathlib import Path
-
 import args
 import config
 import file_util
@@ -13,6 +11,7 @@ import gamedata
 import game_config
 import steps
 
+from pathlib import Path
 from pydub import AudioSegment
 
 parsed_args = args.parse()
