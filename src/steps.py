@@ -7,11 +7,19 @@ from zipfile import ZipFile
 
 import file_util
 
+def listify(thing):
+    if not isinstance(thing, list):
+        return [thing]
+    return thing
+
+def filespecify(filespecs):
+    if not filespecs:
+        filespecs = ["*"]
+    return listify(filespecs)
+
 def apply_filespecs(filename, filespecs, excludespecs = None):
-    if not isinstance(filespecs, list):
-        filespecs = [filespecs]
-    if not isinstance(excludespecs, list):
-        excludespecs = [excludespecs]
+    filespecs = filespecify(filespecs)
+    excludespecs = listify(excludespecs)
     for excludespec in excludespecs:
         if excludespec and fnmatch.fnmatch(filename, excludespec):
             return False
@@ -137,20 +145,19 @@ class AssetsfileStep(Step):
             from UnityPy.tools.extractor import extract_assets
         except:
             return
-        # TODO support image assets to find album art
         # TODO support video assets for music videos and audio extraction
+        filespec = filespecify(self.step.get("assetsfilespec",None))
+        excludespec = listify(self.step.get("assetsexcludespec",None))
         def asset_filter(obj):
             if obj.type == ClassIDType.AudioClip:
                 if obj.m_Length and obj.m_Length < args.minduration:
                     return False
                 if obj.name:
-                    return apply_filespecs(obj.name, self.step["assetsfilespec"], self.step.get("assetsexcludespec",None))
+                    return apply_filespecs(obj.name, filespec, excludespec)
                 return True
             return False
-        # print(config.game_folder.joinpath(step["assetsfile"]), config.output_game_path)
         assetsfiles = self.step["assetsfile"]
-        if not isinstance(assetsfiles, list):
-            assetsfiles = [assetsfiles]
+        assetsfiles = listify(assetsfiles)
         for assetsfile in assetsfiles:
             path_id_list = extract_assets(
                 str(gameconfig.game_folder.joinpath(assetsfile)),
@@ -175,9 +182,7 @@ class QuickBmsStep(Step):
                 overwrite,
             ]
         if "quickbmsfilespec" in self.step:
-            filespecs = self.step["quickbmsfilespec"]
-            if not isinstance(filespecs, list):
-                filespecs = [filespecs]
+            filespecs = filespecify(self.step["quickbmsfilespec"])
             command.extend( [
                 "-f",
                 ";".join(filespecs)
@@ -191,9 +196,11 @@ class QuickBmsStep(Step):
 
 class FilterFilespecStep(Step):
     def execute(self, config, args, gameconfig):
-        for file in gameconfig.output_game_path.glob(self.step["filterfilespec"]):
-            if not apply_filespecs(file, self.step.get("filterincludespec","*"), self.step.get("filterexcludespec",None)) or file_util.audio_duration(file) < args.minduration:
-                os.unlink(file)
+        filespecs = filespecify(self.step["filterfilespec"])
+        for filespec in filespecs:
+            for file in gameconfig.output_game_path.glob(filespec):
+                if not apply_filespecs(file, self.step.get("filterincludespec","*"), self.step.get("filterexcludespec",None)) or file_util.audio_duration(file) < args.minduration:
+                    os.unlink(file)
 
 class FlattenFilespecStep(Step):
     def execute(self, config, args, gameconfig):
@@ -216,7 +223,6 @@ class FlattenFilespecStep(Step):
 
 class IcoextractStep(Step):
     def execute(self, config, args, gameconfig):
-        print("foo")
         index = 0
         if isinstance(self.step["icoextract"], str):
             exe_file = self.step["icoextract"]
@@ -232,7 +238,6 @@ class TagFilespecStep(Step):
     def execute(self, config, args, gameconfig):
         for filepath in gameconfig.output_game_path.glob(self.step["tag_filespec"]):
             file_util.tag(filepath, gameconfig.gamename, args.albumsuffix)
-
 
 StepFuncs = {
     "filespec": FilespecStep,
