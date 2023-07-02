@@ -96,7 +96,7 @@ class ZipfileStep(Step):
             Path(gameconfig.game_folder.joinpath(self.step["zipfile"])), "r"
         ) as zipfile:
             for filename in zipfile.namelist():
-                if apply_filespecs(filename, self.step["zipfilespec"], self.step["zipexcludespec"]):
+                if apply_filespecs(filename, self.step["zipfilespec"], self.step.get("zipexcludespec", None)):
                     if (
                         args.overwrite
                         or not gameconfig.output_game_path.joinpath(filename).exists()
