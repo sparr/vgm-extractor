@@ -25,6 +25,9 @@ A Hat In Time:
 Homeworld Remastered:
 # needs tools like Homesong, Biggie, BigX to extract HW1 and HW2 music
 
+Iconoclasts:
+# data/music/ contains many zero byte .dat files?!
+
 Kingdom Rush Origins:
 # main game binary contains embedded kr3-desktop/assets/sounds/files/*.ogg
 
@@ -73,6 +76,7 @@ Aspire Inas Tale:
 Carto:
 Crying Suns:
 The Escapists 2:
+For The King:
 Gladiabots:
 INSIDE:
 Midnight Protocol:
