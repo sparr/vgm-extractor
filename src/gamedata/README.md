@@ -75,19 +75,17 @@ Here are the steps I might take for the game Slipways:
 $ cd steamapps/common/Slipways
 $ ls *.assets
 globalgamemanagers.assets  resources.assets  sharedassets0.assets  sharedassets1.assets  sharedassets2.assets  sharedassets3.assets
+$ AssetRipper -o /tmp/assets --logFile /tmp/AssetRipper.log -v -q sharedassets0.assets
+[long output listing every asset, but no AudioClip assets]
 $ AssetRipper -o /tmp/assets --logFile /tmp/AssetRipper.log -v -q resources.assets
 [long output listing every asset]
 $ cd /tmp/assets/ExportedProject/Assets/AudioClip/
 $ ls -lSr
-[list of AudioClip assets sorted by size]
+[list of AudioClip assets and metadata files]
 [look for keywords, listen to some, confirm which are the real music files]
+[discover that Music_* are the right files]
 $ cd
 $ rm -rf /tmp/assets
 ```
 
-Then I created [Slipways.yaml](Slipways.yaml)
-
-
-
-assetsfile: Slipways_Data/resources.assets
-  assetsfilespec: Music_*
+Then I created [Slipways.yaml](Slipways.yaml) describing these findings.
