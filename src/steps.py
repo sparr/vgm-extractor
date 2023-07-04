@@ -1,5 +1,6 @@
 import fnmatch
 import os
+import shutil
 import subprocess
 
 from pathlib import Path
@@ -240,6 +241,8 @@ class FlattenFilespecStep(Step):
 
 class IcoextractStep(Step):
     def execute(self, config, args, gameconfig):
+        if shutil.which("icoextract") is None:
+            return
         index = 0
         if isinstance(self.step["icoextract"], str):
             exe_file = self.step["icoextract"]
@@ -248,8 +251,11 @@ class IcoextractStep(Step):
             index = self.step["icoextract"]["index"]
         else:
             raise ValueError
-        command = [ "icoextract", "-n", str(index), gameconfig.game_folder.joinpath(exe_file), gameconfig.output_game_path.joinpath(exe_file).with_suffix(".ico") ]
+        ico_file = Path(exe_file).with_suffix(".ico")
+        command = [ "icoextract", "-n", str(index), gameconfig.game_folder.joinpath(exe_file), gameconfig.output_game_path.joinpath(ico_file) ]
         subprocess.run(command)
+        if args.verbose > 1:
+            print("  " + str(ico_file))
 
 class TagFilespecStep(Step):
     def execute(self, config, args, gameconfig):
