@@ -4,6 +4,8 @@ A tool for extracting music files from installed video games.
 
 While many game developers publish soundtrack albums with or separately from their games, many do not. This tool is meant to fill that gap, by providing the data and tooling necessary to extract the music from a game that is installed.
 
+VGM Extractor contains a [database](src/gamedata) of games describing where and how their music is stored. For games with bare music files, it copies them. For other games, it orchestrates other format-specific [tools](#third-party-tools)
+
 ## Usage
 
     vgm-extractor.py [-h] [-v[v...]] --outputpath OUTPUTPATH
@@ -14,7 +16,7 @@ While many game developers publish soundtrack albums with or separately from the
 
 Example:
 
-    vgm-extractor.py --outputpath ~/Music --format flac
+    vgm-extractor.py --outputpath ~/Music --steamlibrarypath ~/Games --format flac
 
 ## Prerequisites
 
@@ -33,7 +35,7 @@ Specific tools must be on the path to extract certain types of archives:
 
 ## Contributing
 
-At present we can only extract from a small list of games, installed via Steam. Adding support for additional games ranges from easy (no programming at all) to difficult depending on the game. Adding support for other game publishing platforms, operating systems, etc is a more involved undertaking. PRs are welcome!
+At present we can only extract from about 110 games, installed via Steam. Adding support for additional games ranges from easy (no programming at all, just list the file locaitons) to difficult depending on the game. Adding support for other game publishing platforms, operating systems, etc is a more involved undertaking. PRs are welcome!
 
 ## Game Data
 
