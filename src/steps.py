@@ -223,18 +223,18 @@ class FilterFilespecStep(Step):
 
 class FlattenFilespecStep(Step):
     def execute(self, config, args, gameconfig):
-        dirs = set()
+        dirs = []
         for file in gameconfig.output_game_path.glob(self.step["flattenfilespec"]):
             if file.is_file():
                 # TODO allow partial flattening
                 print(file, gameconfig.output_game_path / file.name)
                 os.rename(file, gameconfig.output_game_path / file.name)
             elif file.is_dir():
-                dirs.add(file)
+                dirs.append(file)
             else:
                 # TODO handle sockets, block devices, etc?
                 pass
-        for dir in dirs:
+        for dir in reversed(dirs):
             try:
                 os.removedirs(dir)
             except FileNotFoundError:
