@@ -1,8 +1,12 @@
 ---
 
+Astroneer:
+- /Astro/Content/Paks/Astro-WindowsNoEditor.pak # unpacks with PyPakParser, contains many wem and bnk files
+# bnk files extract to more wem files, but none of them seem to be music
+
 Bastion:
-Content/Audio/Streaming/*.ogg # numerical names, find an index?
-Content/Audio/*.xwb # various sizes, probably some music
+- Content/Audio/Streaming/*.ogg # numerical names, find an index?
+- Content/Audio/*.xwb # various sizes, probably some music
 
 DOTA 2:
 # Valve vpk files not compatible with TF2/bin/vpk_linux32
@@ -79,7 +83,9 @@ Aspire Inas Tale:
 Carto:
 Crying Suns:
 The Escapists 2:
+FAR Lone Sails:
 For The King:
+Fury Unleashed:
 Gladiabots:
 INSIDE:
 Midnight Protocol:
