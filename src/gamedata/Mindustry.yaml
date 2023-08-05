@@ -1,0 +1,8 @@
+---
+extract_steps:
+- zipfile: jre/desktop.jar
+  zipfilespec:
+  - music/*.ogg
+- zipfile: jre/desktop.jar
+  zipfilespec:
+  - sprites/logo.png

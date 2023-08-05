@@ -1,0 +1,5 @@
+---
+game_folder: RebelGalaxy
+extract_steps:
+- filespec: music/*.ogg
+- icoextract: RebelGalaxySteam.exe

@@ -1,0 +1,5 @@
+---
+game_folder: Roadwarden
+extract_steps:
+  - filespec: game/audio/*.ogg
+  - filespect: game/images/logodarktitle.png

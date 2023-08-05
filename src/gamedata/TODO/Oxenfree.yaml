@@ -1,0 +1,4 @@
+---
+extract_steps:
+- assetsfile: OXENFREE_Data/sharedassets10.assets
+# so many files with random names, some music some not. going to have to manually make an include list

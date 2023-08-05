@@ -1,0 +1,6 @@
+---
+extract_steps:
+- filespec: Deep Sky Derelicts OST/Deep Sky Derelicts Soundtrack.rtf
+- filespec:
+  - Deep Sky Derelicts OST/MP3/*.mp3
+  - Deep Sky Derelicts OST/Wav/*.wav
