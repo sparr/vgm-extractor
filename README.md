@@ -39,4 +39,4 @@ At present we can only extract from about 110 games, installed via Steam. Adding
 
 ## Game Data
 
-[gamedata/README.md](gamedata/README.md) explains the contents of the game data files.
+[src/gamedata/README.md](src/gamedata/README.md) explains the contents of the game data files.
