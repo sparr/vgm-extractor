@@ -4,28 +4,44 @@ import shutil
 import subprocess
 
 from pathlib import Path
+from typing import TypeVar
 from zipfile import ZipFile
 
 import file_util
 
-def listify(thing):
+AnyType = TypeVar('AnyType')
+
+
+def listify(thing: list[AnyType] | AnyType | None) -> list[AnyType]:
+    """[things] -> unchanged, thing -> [thing], None -> []"""
+    if thing is None:
+        return []
     if not isinstance(thing, list):
         return [thing]
     return thing
 
-def filespecify(filespecs):
-    if not filespecs:
+
+FilespecsListType = list[str]
+FilespecsType = None | str | FilespecsListType
+
+
+def filespecify(filespecs: FilespecsType) -> FilespecsListType:
+    """[filespecs] -> unchanged, filespec -> [filespec], None -> wildcard"""
+    if filespecs is None:
         filespecs = ["*"]
     return listify(filespecs)
 
-def apply_filespecs(filename, filespecs, excludespecs = None):
+
+def apply_filespecs(filename: str, filespecs: FilespecsType,
+                    excludespecs: FilespecsType = None) -> bool:
+    """Check whether filename matches some filespec and no excludespec"""
     filespecs = filespecify(filespecs)
     excludespecs = listify(excludespecs)
     for excludespec in excludespecs:
-        if excludespec and fnmatch.fnmatch(filename, excludespec):
+        if fnmatch.fnmatch(filename, excludespec):
             return False
     for filespec in filespecs:
-        if filespec and fnmatch.fnmatch(filename, filespec):
+        if fnmatch.fnmatch(filename, filespec):
             return True
     return False
 
@@ -33,8 +49,10 @@ def apply_filespecs(filename, filespecs, excludespecs = None):
 class Step():
     def __init__(self, step):
         self.step = step
+
     def execute(self):
         pass
+
 
 class FilespecStep(Step):
     def execute(self, config, args, gameconfig):
@@ -78,6 +96,7 @@ class FilespecStep(Step):
                 except FileExistsError:
                     pass
 
+
 class PythonStep(Step):
     def execute(self, config, args, gameconfig):
             python_output = getattr(config.gamedata[gameconfig.gamename]["python"], self.step["python"])(
@@ -90,6 +109,7 @@ class PythonStep(Step):
                 if args.verbose > 1:
                     for file in python_output.args:
                         print("  " + file)
+
 
 class ZipfileStep(Step):
     def execute(self, config, args, gameconfig):
@@ -110,6 +130,7 @@ class ZipfileStep(Step):
                         if args.verbose > 1:
                             print("  " + filename)
         # TODO: eliminate unwanted levels of folder nesting here
+
 
 # unxwb from https://github.com/mariodon/unxwb
 # TODO: support --overwrite
@@ -139,6 +160,7 @@ class XwbfileStep(Step):
         )
         yes.stdout.close()
 
+
 class AssetsfileStep(Step):
     def execute(self, config, args, gameconfig):
         try:
@@ -149,6 +171,7 @@ class AssetsfileStep(Step):
         # TODO support video assets for music videos and audio extraction
         filespec = filespecify(self.step.get("assetsfilespec",None))
         excludespec = listify(self.step.get("assetsexcludespec",None))
+
         def asset_filter(obj):
             if obj.type == ClassIDType.AudioClip:
                 if obj.m_Length and obj.m_Length < args.minduration:
@@ -174,6 +197,7 @@ class AssetsfileStep(Step):
             if len(path_id_list) == 0:
                 raise Exception("Empty unity extract")
         # TODO collect and output filenames for verbose>1
+
 
 class QuickBmsStep(Step):
     def execute(self, config, args, gameconfig):
@@ -213,6 +237,7 @@ class QuickBmsStep(Step):
         if "quickbmsfilespec" in self.step:
             FilterFilespecStep({"filterfilespec" : filespecs}).execute(config, args, gameconfig)
 
+
 class FilterFilespecStep(Step):
     def execute(self, config, args, gameconfig):
         filespecs = filespecify(self.step["filterfilespec"])
@@ -220,6 +245,7 @@ class FilterFilespecStep(Step):
             for file in gameconfig.output_game_path.glob(filespec):
                 if not apply_filespecs(file, self.step.get("filterincludespec","*"), self.step.get("filterexcludespec",None)) or file_util.audio_duration(file) < args.minduration:
                     os.unlink(file)
+
 
 class FlattenFilespecStep(Step):
     def execute(self, config, args, gameconfig):
@@ -239,6 +265,7 @@ class FlattenFilespecStep(Step):
                 os.removedirs(dir)
             except FileNotFoundError:
                 pass
+
 
 class IcoextractStep(Step):
     def execute(self, config, args, gameconfig):
