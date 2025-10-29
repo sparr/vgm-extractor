@@ -1,6 +1,8 @@
 from pathlib import Path
+import importlib.util
 import pkgutil
 import yaml
+import sys
 
 def load():
     game_data = {}
@@ -17,6 +19,8 @@ def load():
 
     # TODO replace deprecated find_module and load_module
     for finder, name, ispkg in pkgutil.iter_modules([str(script_dir / "gamedata")]):
-        game_data[name]["python"] = finder.find_module(name).load_module()
+        spec = finder.find_spec(name)
+        game_data[name]["python"] = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(game_data[name]["python"])
 
     return game_data
