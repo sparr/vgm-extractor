@@ -1,0 +1,7 @@
+---
+game_folder: ["Skyrim", "Skyrim Special Edition"]
+extract_steps:
+  - bsafile: Data/Skyrim - Sounds.bsa
+    bsafilespec:
+    - music/
+  #TODO: support mods with music?

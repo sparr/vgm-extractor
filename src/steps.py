@@ -285,10 +285,30 @@ class IcoextractStep(Step):
         if args.verbose > 1:
             print("  " + str(ico_file))
 
+
 class TagFilespecStep(Step):
     def execute(self, config, args, gameconfig):
         for filepath in gameconfig.output_game_path.glob(self.step["tag_filespec"]):
             file_util.tag(filepath, gameconfig.gamename, args.albumsuffix)
+
+
+class BsafileStep(Step):
+    def execute(self, config, args, gameconfig):
+        if shutil.which("BSAFileExtractor.py") is None:
+            return
+        #FIXME BSAFileExtractor doesn't support wildcards
+        # https://github.com/Sw4T/BSAFileExtractor/issues/1
+        files = filespecify(self.step.get("bsafilespec",None))
+
+        command = [
+                "BSAFileExtractor.py",
+                str(gameconfig.game_folder.joinpath(self.step["bsafile"])),
+                "-o",
+                gameconfig.output_game_path
+            ]
+        command = command + files
+        subprocess.run(command)
+
 
 StepFuncs = {
     "filespec": FilespecStep,
@@ -301,4 +321,5 @@ StepFuncs = {
     "filterfilespec": FilterFilespecStep,
     "flattenfilespec": FlattenFilespecStep,
     "icoextract": IcoextractStep,
+    "bsafile": BsafileStep,
 }
