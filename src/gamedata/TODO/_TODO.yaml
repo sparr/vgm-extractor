@@ -53,8 +53,9 @@ Rust:
 Rusty Lake Roots:
 # SWF with embedded MP3(?)
 
-Skyrim:
-# need a tool or script to extract BSA files version 105
+The Walking Dead The Telltale Definitive Series:
+# ttarch2 files need an extractor
+# maybe something based on https://github.com/LucasSaragosa/TelltaleInspector or https://github.com/Telltale-Modding-Group/Telltale-Editor
 
 This War of Mine:
 # $ file sounds.dat
@@ -88,11 +89,13 @@ For The King:
 Fury Unleashed:
 Gladiabots:
 INSIDE:
+LamplightersLeague:
 Midnight Protocol:
 My Time at Sandrock:
 Project Winter:
 Risk of Rain 2:
 Subnautica:
+Superliminal:
 Surviving the Aftermath:
 The Long Dark:
 The Survivalists:
@@ -129,3 +132,14 @@ The Signal From Tölva:
 Throne of Lies:
 TIS-100:
 Unturned:
+
+# Unity games that have res files I haven't tried to unpack yet:
+Empyrion - Galactic Survival:
+Endless Space:
+Endless Space 2:
+
+# Unreal Engine (UE) games probably-encrypted pak files
+# these could potentially be extracted using something like Steamless + AESKeyFinder + UnrealPak
+# see https://github.com/Cracko298/UE4-AES-Key-Extracting-Guide
+Remnant 2:
+High on Life:
