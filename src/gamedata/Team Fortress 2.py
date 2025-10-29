@@ -4,7 +4,12 @@ import pathlib
 
 
 def extract(config, args, gameconfig):
-    os.makedirs(gameconfig.output_game_path / "sound" / "music")
+    # this binary is missing from some linux installs of TF2
+    # also no idea what the windows equivalent is
+    # maybe switch to a dependency on https://github.com/ValvePython/vpk ?
+    if not os.path.isfile(gameconfig.game_folder / "bin" / "vpk_linux32"):
+        return
+    os.makedirs(gameconfig.output_game_path / "sound" / "music", exist_ok = args.overwrite)
     accumulate_outputs = subprocess.CompletedProcess([], 0)
     archive_list_output = subprocess.run(
         [
