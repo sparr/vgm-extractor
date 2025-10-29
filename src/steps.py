@@ -310,6 +310,23 @@ class BsafileStep(Step):
         subprocess.run(command)
 
 
+class BankfileStep(Step):
+    def execute(self, config, args, gameconfig):
+        if shutil.which("FModBankParser.Demo") is None:
+            return
+
+        command = [
+                "FModBankParser.Demo",
+                "-e",  # export audio files
+                "-o", gameconfig.output_game_path,
+                str(gameconfig.game_folder.joinpath(self.step["bankfile"])),
+            ]
+        subprocess.run(command, stdin=subprocess.DEVNULL)
+        # stdin redirect is necessary to avoid "press any key" prompt
+        # FModBankParser.Demo will throw an exception
+        # Fix for this is blocked by https://github.com/dotnet/runtime/issues/66530
+
+
 StepFuncs = {
     "filespec": FilespecStep,
     "python": PythonStep,
@@ -322,4 +339,5 @@ StepFuncs = {
     "flattenfilespec": FlattenFilespecStep,
     "icoextract": IcoextractStep,
     "bsafile": BsafileStep,
+    "bankfile": BankfileStep,
 }

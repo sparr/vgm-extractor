@@ -33,6 +33,7 @@ Specific tools must be on the path to extract certain types of archives:
 - [icoextract](https://github.com/jlu5/icoextract) to extract icons from exe files
 - [ffmpeg](http://www.ffmpeg.org/) or [libav](http://libav.org/) for converting wav files to other audio formats
 - [BSAFileExtractor.py](https://github.com/Sw4T/BSAFileExtractor) for Bethesda BSA files
+- [FModBankParser.Demo](https://github.com/Masusder/FModBankParser) for FMOD Bank files
 
 ## Contributing
 
