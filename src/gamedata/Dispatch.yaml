@@ -3,11 +3,10 @@ game_folder: ["Dispatch"]
 extract_steps:
   - bankfile: Dispatch/Content/FMOD/Desktop/Ep101Music.bank
   - bankfile: Dispatch/Content/FMOD/Desktop/Ep102Music.bank
-  # Episodes 103+ file names are predicted for future releases
   - bankfile: Dispatch/Content/FMOD/Desktop/Ep103Music.bank
   - bankfile: Dispatch/Content/FMOD/Desktop/Ep104Music.bank
   - bankfile: Dispatch/Content/FMOD/Desktop/Ep105Music.bank
   - bankfile: Dispatch/Content/FMOD/Desktop/Ep106Music.bank
   - bankfile: Dispatch/Content/FMOD/Desktop/Ep107Music.bank
   - bankfile: Dispatch/Content/FMOD/Desktop/Ep108Music.bank
-  - filterfilespec: "Ep101Music.bank/*.ogg"
+  - filterfilespec: "*/*.ogg"
